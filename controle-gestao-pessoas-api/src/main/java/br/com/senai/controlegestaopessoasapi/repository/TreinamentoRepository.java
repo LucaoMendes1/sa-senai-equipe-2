@@ -17,7 +17,7 @@ public interface TreinamentoRepository extends JpaRepository<Treinamento, Intege
 	@Query(value = 
 			"SELECT t "
 			+ "FROM Treinamento t "
-			+ "WHERE Upper(t.nome) LIKE Upper(:nome)")
-	List<Treinamento> listarPor(@Param("nome") String nome);
+			+ "WHERE Upper(t.titulo) LIKE Upper(:titulo)")
+	List<Treinamento> listarPor(@Param("titulo") String titulo);
 
 }
