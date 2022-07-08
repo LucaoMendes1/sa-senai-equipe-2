@@ -23,7 +23,7 @@ public class Facilitador {
 	private Integer id;
 	
 	@Column(name="nome_completo")
-	@Max(value = 50, message = "O nome completo deve ter no máxio 50 caracteres")
+	@Max(value = 50, message = "O nome completo deve ter no máximo 50 caracteres")
 	@Min(value = 2, message = "O nome completo deve ter pelo menos 2 caracteres")
 	@NotEmpty(message = "O nome completo é obrigatório")
 	private String nomeCompleto;
