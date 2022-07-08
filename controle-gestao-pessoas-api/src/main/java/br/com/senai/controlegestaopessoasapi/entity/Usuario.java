@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 import br.com.senai.controlegestaopessoasapi.entity.enums.Tipo;
 import lombok.Data;
@@ -23,12 +26,21 @@ public class Usuario {
 	private Integer id;
 	
 	@Column(name="login")
+	@Max(value = 20, message = "O login deve ter no máxio 20 caracteres")
+	@Min(value = 2, message = "O login deve ter pelo menos 2 caracteres")
+	@NotEmpty(message = "O login é obrigatório")
 	private  String login;
 	
 	@Column(name="nome_completo")
+	@Max(value = 50, message = "O nome completo deve ter no máxio 50 caracteres")
+	@Min(value = 2, message = "O nome completo deve ter pelo menos 2 caracteres")
+	@NotEmpty(message = "O nome completo é obrigatório")
 	private String nomeCompleto;
 	
 	@Column(name="senha")
+	@Max(value = 10, message = "A senha deve ter no máxio 10 caracteres")
+	@Min(value = 2, message = "A senha deve ter pelo menos 2 caracteres")
+	@NotEmpty(message = "A senha é obrigatória")
 	private String senha;
 	
 	@Column(name="tipo")
