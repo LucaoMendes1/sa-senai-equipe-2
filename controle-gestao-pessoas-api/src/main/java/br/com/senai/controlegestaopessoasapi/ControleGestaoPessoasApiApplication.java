@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import br.com.senai.controlegestaopessoasapi.entity.Usuario;
+import br.com.senai.controlegestaopessoasapi.repository.UsuarioRepository;
 import br.com.senai.controlegestaopessoasapi.service.UsuarioService;
 
 @SpringBootApplication
@@ -17,18 +17,17 @@ public class ControleGestaoPessoasApiApplication {
 	@Autowired
 	private UsuarioService service;
 	
+	@Autowired
+	private UsuarioRepository repository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ControleGestaoPessoasApiApplication.class, args);
 	}
 	
-	
 	@Bean	
 	public CommandLineRunner commandLineRunner(ApplicationContext ac) {
 		return args -> {
-			Usuario usuario = new Usuario();
-			usuario.setLogin("Kevin");
-			usuario.setSenha("123456");
-			System.out.println("+++++++++++=======>" +service.autenticar(usuario));
+			service.remover(repository.buscarPor("Kevin", "123456"));
 		};
 	}
 
