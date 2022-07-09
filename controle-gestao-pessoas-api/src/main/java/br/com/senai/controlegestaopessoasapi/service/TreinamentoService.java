@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Preconditions;
+
 import br.com.senai.controlegestaopessoasapi.entity.Treinamento;
 import br.com.senai.controlegestaopessoasapi.repository.TreinamentoRepository;
 
@@ -29,6 +31,9 @@ public class TreinamentoService {
 			@Valid
 			@NotNull(message = "O treinamento não pode ser nulo")
 			Treinamento novoTreinamento) {
+		Preconditions.checkArgument(novoTreinamento.isNovo(),
+				"O treinamento já foi salvo");
+		
 		Treinamento treinamentoSalvo = repository.save(novoTreinamento);
 		return treinamentoSalvo;
 	}
@@ -37,6 +42,8 @@ public class TreinamentoService {
 			@Valid 
 			@NotNull(message = "O treinamento não pode ser nulo")
 			Treinamento treinamentoSalvo) {
+		Preconditions.checkArgument(!treinamentoSalvo.isNovo(), 
+				"O treinamento ainda não foi inserido");
 		Treinamento treinamentoAtualizado = repository.save(treinamentoSalvo);
 		return treinamentoAtualizado;
 	}
@@ -52,7 +59,7 @@ public class TreinamentoService {
 			@NotEmpty(message = "A descrição da busca é obrigatória")
 			@NotBlank(message = "A descrição não pode conter espaço em branco")
 			String descricao){
-		return repository.listarPor("%" + descricao + "%");
+		return repository.listarPor("%" + descricao + "%"); //conferir se é por descricao
 	}
 	
 }

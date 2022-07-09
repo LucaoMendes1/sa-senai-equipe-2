@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -45,4 +46,11 @@ public class Treinamento {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@NotNull(message = "O facilitador é obrigatório")
 	private Facilitador facilitador;
+	
+	@Transient
+	public boolean isNovo() {
+		return getId() == null || getId() == 0;
+	}
+
+	
 }

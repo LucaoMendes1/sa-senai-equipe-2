@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -46,4 +47,9 @@ public class Usuario {
 	@Column(name="tipo")
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
+	
+	@Transient
+	public boolean isNovo() {
+		return getId() == null || getId() == 0;
+	}
 }

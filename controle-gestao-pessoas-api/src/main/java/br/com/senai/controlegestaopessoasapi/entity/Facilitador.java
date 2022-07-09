@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -57,4 +58,9 @@ public class Facilitador {
 	@Min(value = 2, message = "A senha deve ter pelo menos 2 caracteres")
 	@NotEmpty(message = "A senha é obrigatória")
 	private String senha;
+	
+	@Transient
+	public boolean isNovo() {
+		return getId() == null || getId() == 0;
+	}
 }
