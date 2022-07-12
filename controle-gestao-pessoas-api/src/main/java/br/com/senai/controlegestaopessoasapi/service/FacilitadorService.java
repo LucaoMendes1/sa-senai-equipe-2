@@ -10,12 +10,13 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.google.common.base.Preconditions;
 
+import br.com.senai.controlegestaopessoasapi.controller.RegistroNaoEncontradoException;
 import br.com.senai.controlegestaopessoasapi.entity.Facilitador;
 import br.com.senai.controlegestaopessoasapi.repository.FacilitadorRepository;
+
 
 
 @Service
@@ -52,12 +53,27 @@ public class FacilitadorService {
 		this.repository.deleteById(id);
 	}
 	
-	public List<Facilitador> listarPor(
-			@NotEmpty(message = "A descrição da busca é obrigatória")
-			@NotBlank(message = "A descrição não pode conter espaço em branco")
-			String descricao){
-		return repository.listarPor("%" + descricao + "%"); //conferir se é por descricao
+	public Facilitador buscarPor(
+			@NotNull(message = "O id para busca não pode ser nulo")
+			Integer id) {
+		Facilitador facilitadorEncontrado = repository.buscarPor(id);
+		if (facilitadorEncontrado == null) {
+			throw new RegistroNaoEncontradoException(
+				"Não foi encontrado o facilitador");
+		}
+		return facilitadorEncontrado;
 	}
+	
+	public List<Facilitador> listarPor(
+			@NotEmpty(message = "O nome da busca é obrigatória")
+			@NotBlank(message = "O nome não pode conter espaço em branco")
+			String nome){
+		return repository.listarPor("%" + nome + "%"); 
+	}
+
+
+
+
 	
 	
 	

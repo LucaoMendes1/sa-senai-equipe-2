@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
+import br.com.senai.controlegestaopessoasapi.controller.RegistroNaoEncontradoException;
 import br.com.senai.controlegestaopessoasapi.entity.Treinamento;
 import br.com.senai.controlegestaopessoasapi.repository.TreinamentoRepository;
 
@@ -48,6 +49,18 @@ public class TreinamentoService {
 		return treinamentoAtualizado;
 	}
 	
+	public Treinamento buscarPor(
+			@NotNull(message = "O id para busca não pode ser nulo")
+			Integer id) {
+		Treinamento TreinamentoEncontrado = repository.buscarPor(id);
+		if (TreinamentoEncontrado == null) {
+			throw new RegistroNaoEncontradoException(
+				"O treinamento não foi encontrado");
+		}
+		return TreinamentoEncontrado;
+	}
+	
+	
 	public void removerPor(
 			@NotNull(message = "O id do treinamento para remoção não pode ser nulo")
 			@Min(value = 1, message = "O id do treinamento deve ser maior que zero")
@@ -56,11 +69,13 @@ public class TreinamentoService {
 	}
 	
 	public List<Treinamento> listarPor(
-			@NotEmpty(message = "A descrição da busca é obrigatória")
-			@NotBlank(message = "A descrição não pode conter espaço em branco")
-			String descricao){
-		return repository.listarPor("%" + descricao + "%"); //conferir se é por descricao
+			@NotEmpty(message = "O título da busca é obrigatória")
+			@NotBlank(message = "O título não pode conter espaço em branco")
+			String titulo){
+		return repository.listarPor("%" + titulo + "%"); 
 	}
+
+	
 	
 }
 	
