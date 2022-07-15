@@ -27,7 +27,6 @@ public class ControleGestaoPessoasApiApplication {
 	@Bean	
 	public CommandLineRunner commandLineRunner(ApplicationContext ac) {
 		return args -> {
-			service.remover(repository.buscarPor("Kevin", "123456"));
 		};
 	}
 
