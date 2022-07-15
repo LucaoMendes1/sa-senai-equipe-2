@@ -19,12 +19,4 @@ public class UsuarioService {
 	public Usuario autenticar(@NotNull(message = "O usuário não pode estar nulo") Usuario usuario) {
 		return repository.buscarPor(usuario.getLogin(), usuario.getSenha());
 	}
-	
-	public Usuario inserir(@NotNull(message = "O novo usuário não pode ser nulo") Usuario novoUsuario) {
-		return repository.save(novoUsuario);
-	}
-	
-	public void remover(@NotNull(message = "O usuário não pode ser nulo") Usuario usuario) {
-		repository.delete(usuario);
-	}
 }

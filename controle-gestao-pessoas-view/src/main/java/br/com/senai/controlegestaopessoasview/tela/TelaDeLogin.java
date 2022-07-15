@@ -1,19 +1,24 @@
 package br.com.senai.controlegestaopessoasview.tela;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
+
+import br.com.senai.controlegestaopessoasview.client.UsuarioClient;
+import br.com.senai.controlegestaopessoasview.dto.Tipo;
+import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 @Component
 public class TelaDeLogin extends JFrame implements Serializable{
@@ -21,20 +26,17 @@ public class TelaDeLogin extends JFrame implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tfLogin;
-	private JTextField tfSenha;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaDeLogin frame = new TelaDeLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
+	@Autowired
+	private UsuarioClient client;
+	
+	@Autowired
+	private TelaPrincipalGestor tpGestor;
+	
+	@Autowired
+	private TelaPrincipalFacilitador tpFacilitador;
+	
+	private JPasswordField psSenha;
 
 	/**
 	 * Create the frame.
@@ -53,17 +55,31 @@ public class TelaDeLogin extends JFrame implements Serializable{
 		contentPane.add(tfLogin);
 		tfLogin.setColumns(10);
 		
-		tfSenha = new JTextField();
-		tfSenha.setColumns(10);
-		tfSenha.setBounds(33, 134, 220, 33);
-		contentPane.add(tfSenha);
-		
 		JButton btnLogar = new JButton("Logar");
 		btnLogar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
+				Usuario usuario = new Usuario();
+				usuario.setLogin(tfLogin.getText());
+				usuario.setSenha(psSenha.getText());
+				navegar(usuario);
+			}
+			private void navegar(Usuario usuario) {
+				Usuario usuarioLogado = client.logar(usuario);
+				if (usuarioLogado != null) {
+					if (usuarioLogado.getTipo() == Tipo.GESTOR) {
+						tpGestor.setVisible(true);						
+					}else if (usuarioLogado.getTipo() == Tipo.FACILITADOR) {
+						tpFacilitador.setVisible(true);						
+					}
+					contentPane.setVisible(false);
+				}else {
+					JOptionPane.showMessageDialog(contentPane, "Usuário não encontrado!");
+				}
 			}
 		});
-		btnLogar.setBounds(89, 179, 110, 41);
+
+		btnLogar.setBounds(81, 193, 110, 41);
 		contentPane.add(btnLogar);
 		
 		JLabel lblNewLabel = new JLabel("Senha");
@@ -73,6 +89,9 @@ public class TelaDeLogin extends JFrame implements Serializable{
 		JLabel lblLogin = new JLabel("Login");
 		lblLogin.setBounds(33, 35, 55, 16);
 		contentPane.add(lblLogin);
+		
+		psSenha = new JPasswordField();
+		psSenha.setBounds(33, 141, 220, 40);
+		contentPane.add(psSenha);
 	}
-
 }
