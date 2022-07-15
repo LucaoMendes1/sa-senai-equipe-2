@@ -1,6 +1,5 @@
 package br.com.senai.controlegestaopessoasview.tela;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,20 +14,17 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
+import br.com.senai.controlegestaopessoasview.dto.Usuario;
+
 @Component
 public class TelaPrincipalGestor extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUserStatus;
 	private JTextField txtNomeUsuario;
-
-	/**
-	 * Create the frame.
-	 */
+	
+	
 	public TelaPrincipalGestor() {
 		setTitle("Principal (Acesso GESTOR)- SA System 1.2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,11 +60,12 @@ public class TelaPrincipalGestor extends JFrame {
 		});
 		
 		txtUserStatus = new JTextField();
-		txtUserStatus.setEnabled(false);
+		txtUserStatus.setEditable(false);
+		txtUserStatus.setText("Usuário Logado");
 		txtUserStatus.setColumns(10);
 		
 		txtNomeUsuario = new JTextField();
-		txtNomeUsuario.setEnabled(false);
+		txtNomeUsuario.setEditable(false);
 		txtNomeUsuario.setColumns(10);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -102,5 +99,9 @@ public class TelaPrincipalGestor extends JFrame {
 						.addComponent(txtUserStatus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	public void carregarTela(Usuario usuario) {
+		txtNomeUsuario.setText(usuario.getNomeCompleto());
+		this.setVisible(true);
 	}
 }

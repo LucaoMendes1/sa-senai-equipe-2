@@ -68,9 +68,11 @@ public class TelaDeLogin extends JFrame implements Serializable{
 				Usuario usuarioLogado = client.logar(usuario);
 				if (usuarioLogado != null) {
 					if (usuarioLogado.getTipo() == Tipo.GESTOR) {
-						tpGestor.setVisible(true);						
+						tpGestor.carregarTela(usuarioLogado);
 					}else if (usuarioLogado.getTipo() == Tipo.FACILITADOR) {
+						
 						tpFacilitador.setVisible(true);						
+						
 					}
 					contentPane.setVisible(false);
 				}else {

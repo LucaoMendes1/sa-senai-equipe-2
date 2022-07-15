@@ -7,4 +7,5 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private Tipo tipo;
+	private String nomeCompleto;
 }
