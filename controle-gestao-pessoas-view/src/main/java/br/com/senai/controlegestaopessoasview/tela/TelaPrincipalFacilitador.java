@@ -12,23 +12,23 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TelaPrincipalFacilitador extends JFrame {
 
-	/**
-	 * 
-	 */
+
+	@Autowired
+	private TelaFacilitadorListagem telaFacilitadorListagem;
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnFacilitador;
 	private JTextField txtUserStatus;
 	private JTextField txtNomeUsuario;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public TelaPrincipalFacilitador() {
 		setTitle("Principal(Acesso Facilitador)- SA System 1.2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,6 +40,8 @@ public class TelaPrincipalFacilitador extends JFrame {
 		btnFacilitador = new JButton("Facilitadores");
 		btnFacilitador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				telaFacilitadorListagem.setVisible(true);
 				
 				
 				

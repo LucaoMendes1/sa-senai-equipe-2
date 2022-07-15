@@ -52,6 +52,14 @@ public class FacilitadorController {
 	public ResponseEntity<?> buscarPor (@PathVariable(name = "id") Integer id) {
 		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(id)));
 	}
+	
+	@GetMapping(value = "/nomeCompleto/{nomeCompleto}")
+	public ResponseEntity<?> listarPor(
+			@PathVariable(name = "nomeCompleto")
+			String nomeCompleto){
+		return ResponseEntity.ok(mapConverter
+				.toJsonList(service.listarPor(nomeCompleto)));
+	}
 
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<?> excluirPor(@PathVariable(name = "id") Integer id) {
