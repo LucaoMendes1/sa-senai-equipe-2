@@ -26,13 +26,12 @@ public class FacilitadorClient {
 	@Autowired
 	private ObjectMapper mapper;
 	
-	private final String resource = "/facilitador";
+	private final String resource = "/facilitadores";
 	
 	@Autowired
 	private RestTemplateBuilder builder;
 	
-	public Facilitador inserir(
-			Facilitador novoFacilitador) {
+	public Facilitador inserir( Facilitador novoFacilitador) {
 		
 		RestTemplate httpClient = builder.build();
 		
@@ -46,36 +45,36 @@ public class FacilitadorClient {
 		return facilitadorSalvo;
 		
 	}
-	
-	public void alterar(Facilitador facilitadorSalvo) {
-		RestTemplate httpClient = builder.build();
-		httpClient.put(urlEndpoint + resource, 
-				facilitadorSalvo);
-	}
-	
-	public void excluir(Facilitador facilitadorSalvo) {
-		RestTemplate httpClient = builder.build();
-		httpClient.delete(urlEndpoint + resource 
-				+ "/id/" + facilitadorSalvo.getId());
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Facilitador> listarPor(String nomeCompleto){
-		
-		RestTemplate httpClient = builder.build();
-		
-		List<LinkedHashMap<String, Object>> response = httpClient.getForObject(
-				urlEndpoint + resource + "/nome/" + nomeCompleto, List.class);
-		
-		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
-		
-		for (LinkedHashMap<String, Object> item : response) {
-			Facilitador facilitador = mapper.convertValue(item, Facilitador.class);
-			facilitadores.add(facilitador);
-		}
-		
-		return facilitadores;
-	}
+//	
+//	public void alterar(Facilitador facilitadorSalvo) {
+//		RestTemplate httpClient = builder.build();
+//		httpClient.put(urlEndpoint + resource, 
+//				facilitadorSalvo);
+//	}
+//	
+//	public void excluir(Facilitador facilitadorSalvo) {
+//		RestTemplate httpClient = builder.build();
+//		httpClient.delete(urlEndpoint + resource 
+//				+ "/id/" + facilitadorSalvo.getId());
+//	}
+//	
+//	@SuppressWarnings("unchecked")
+//	public List<Facilitador> listarPor(String nomeCompleto){
+//		
+//		RestTemplate httpClient = builder.build();
+//		
+//		List<LinkedHashMap<String, Object>> response = httpClient.getForObject(
+//				urlEndpoint + resource + "/nome/" + nomeCompleto, List.class);
+//		
+//		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
+//		
+//		for (LinkedHashMap<String, Object> item : response) {
+//			Facilitador facilitador = mapper.convertValue(item, Facilitador.class);
+//			facilitadores.add(facilitador);
+//		}
+//		
+//		return facilitadores;
+//	}
 
 
 }

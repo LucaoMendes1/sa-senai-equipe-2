@@ -10,18 +10,25 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.google.common.base.Preconditions;
 
 import br.com.senai.controlegestaopessoasapi.controller.RegistroNaoEncontradoException;
 import br.com.senai.controlegestaopessoasapi.entity.Facilitador;
+import br.com.senai.controlegestaopessoasapi.entity.Usuario;
+import br.com.senai.controlegestaopessoasapi.entity.enums.Tipo;
 import br.com.senai.controlegestaopessoasapi.repository.FacilitadorRepository;
+import br.com.senai.controlegestaopessoasapi.repository.UsuarioRepository;
 
 
 
 @Service
-@Valid
+@Validated
 public class FacilitadorService {
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	private FacilitadorRepository repository;
@@ -33,6 +40,13 @@ public class FacilitadorService {
 		Preconditions.checkArgument(novoFacilitador.isNovo(),
 				"O facilitador já foi salvo");
 		Facilitador facilitadorSalvo = repository.save(novoFacilitador);
+		Usuario novoUsuario = new Usuario();
+		novoUsuario.setLogin(novoFacilitador.getLogin());
+		novoUsuario.setNomeCompleto(novoFacilitador.getNomeCompleto());
+		novoUsuario.setSenha(novoFacilitador.getSenha());
+		novoUsuario.setTipo(Tipo.FACILITADOR);
+		usuarioRepository.save(novoUsuario);
+		
 		return facilitadorSalvo;
 	}
 	
