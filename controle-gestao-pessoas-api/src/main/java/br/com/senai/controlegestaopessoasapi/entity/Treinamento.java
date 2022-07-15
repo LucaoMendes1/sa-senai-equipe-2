@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -27,10 +28,18 @@ public class Treinamento {
 	private Integer id;
 	
 	@Column(name="titulo")
+<<<<<<< HEAD
+=======
+	@Size(max = 100, min = 2, message = "O login deve ter pelo menos 2 e no máximo 100 caracteres")
+>>>>>>> 7bfdb64b8c592db6968965134e73237911193dab
 	@NotEmpty(message = "O título é obrigatório")
 	private String titulo;
 	
 	@Column(name="descricao_longa")
+<<<<<<< HEAD
+=======
+	@Size(max = 1500, min = 10, message = "O login deve ter pelo menos 10 e no máximo 1500 caracteres")
+>>>>>>> 7bfdb64b8c592db6968965134e73237911193dab
 	private String descricaoLonga;
 	
 	@Column(name="dt_localizacao")
