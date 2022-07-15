@@ -30,6 +30,11 @@ public class TelaDeLogin extends JFrame implements Serializable{
 	@Autowired
 	private UsuarioClient client;
 	
+	@Autowired
+	private TelaPrincipalGestor tpGestor;
+	
+	@Autowired
+	private TelaPrincipalFacilitador tpFacilitador;
 	
 	private JPasswordField psSenha;
 
@@ -63,12 +68,11 @@ public class TelaDeLogin extends JFrame implements Serializable{
 				Usuario usuarioLogado = client.logar(usuario);
 				if (usuarioLogado != null) {
 					if (usuarioLogado.getTipo() == Tipo.GESTOR) {
-						//TODO abrir tela do gestor
-						
+						tpGestor.setVisible(true);						
 					}else if (usuarioLogado.getTipo() == Tipo.FACILITADOR) {
-						//TODO abrir tela do facilitador
-
+						tpFacilitador.setVisible(true);						
 					}
+					contentPane.setVisible(false);
 				}else {
 					JOptionPane.showMessageDialog(contentPane, "Usuário não encontrado!");
 				}
