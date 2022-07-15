@@ -19,4 +19,5 @@ public class UsuarioService {
 	public Usuario autenticar(@NotNull(message = "O usuário não pode estar nulo") Usuario usuario) {
 		return repository.buscarPor(usuario.getLogin(), usuario.getSenha());
 	}
+	
 }

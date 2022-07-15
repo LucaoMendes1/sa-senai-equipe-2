@@ -33,9 +33,7 @@ public class FacilitadorController {
 	private FacilitadorService service;
 
 	@PostMapping
-	public ResponseEntity<?> inserir (@RequestBody Map<String, Object> facilitadorMap) {
-		Facilitador novoFacilitador = 
-				mapper.convertValue(facilitadorMap, Facilitador.class);
+	public ResponseEntity<?> inserir (@RequestBody Facilitador novoFacilitador) {
 		Facilitador facilitadorSalvo = 
 				service.inserir(novoFacilitador);
 		return ResponseEntity.created(URI.create("/facilitadores/id/" + facilitadorSalvo.getId())).build();

@@ -41,7 +41,7 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+			} 
 		});
 		
 		txtFiltro = new JTextField();
