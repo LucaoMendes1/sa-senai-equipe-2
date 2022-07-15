@@ -5,14 +5,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableColumnModel;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
+import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -21,17 +28,19 @@ import javax.swing.JTable;
 @Component
 public class TelaFacilitadorListagem extends JFrame {
 
-	/**
-	 * 
-	 */
+	@Autowired
+	private FacilitadorClient client;
+	
+	@Autowired
+	private TelaFacilitadorInsercaoEdicao telaFacilitadorInsercaoEdicao;
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtFiltro;
 	private JTable table;
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public TelaFacilitadorListagem() {
 		setTitle("Facilitador (LISTAGEM) - SA System 1.2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,9 +52,11 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				telaFacilitadorInsercaoEdicao.setVisible(true);
+				setVisible(false);
 			}
-		});
-		
+				
+		});	
 		txtFiltro = new JTextField();
 		txtFiltro.setColumns(10);
 		
@@ -54,6 +65,11 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+			List<Facilitador> facilitadores = client.listarPor("");
+			System.out.println("teste");
+				
+				
 			}
 		});
 		

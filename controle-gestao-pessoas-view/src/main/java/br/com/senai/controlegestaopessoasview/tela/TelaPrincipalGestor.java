@@ -1,4 +1,4 @@
-package br.com.senai.controlegestaopessoasview.tela;
+ package br.com.senai.controlegestaopessoasview.tela;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -13,22 +13,27 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TelaPrincipalGestor extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUserStatus;
 	private JTextField txtNomeUsuario;
 
-	/**
-	 * Create the frame.
-	 */
+	
+	
+	@Autowired
+	private TelaPrincipalFacilitador tpFacilitador;
+	
+	@Autowired
+	private TelaTreinamentoListagem telaTreinamentoListagem;
+	
+	
+	
 	public TelaPrincipalGestor() {
 		setTitle("Principal (Acesso GESTOR)- SA System 1.2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,6 +46,7 @@ public class TelaPrincipalGestor extends JFrame {
 		btnFacilitadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				tpFacilitador.setVisible(true);
 				
 				
 				
@@ -51,6 +57,7 @@ public class TelaPrincipalGestor extends JFrame {
 		btnTreinamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				telaTreinamentoListagem.setVisible(true);
 				
 				
 			}
@@ -60,6 +67,8 @@ public class TelaPrincipalGestor extends JFrame {
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
+				
+				
 			}
 		});
 		
