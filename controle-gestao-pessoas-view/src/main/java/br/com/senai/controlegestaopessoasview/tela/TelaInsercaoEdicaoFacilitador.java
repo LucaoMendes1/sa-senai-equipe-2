@@ -13,15 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaInsercaoEdicaoFacilitador extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tFCPF;
+	private JTextField tFRG;
+	private JTextField tFLogin;
+	private JTextField tFSenha;
 
 	/**
 	 * Launch the application.
@@ -59,11 +61,11 @@ public class TelaInsercaoEdicaoFacilitador extends JFrame {
 		
 		JLabel lblCPF = new JLabel("CPF");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		tFCPF = new JTextField();
+		tFCPF.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		tFRG = new JTextField();
+		tFRG.setColumns(10);
 		
 		JLabel lblRG = new JLabel("RG");
 		
@@ -73,15 +75,19 @@ public class TelaInsercaoEdicaoFacilitador extends JFrame {
 		
 		JLabel lblLogin = new JLabel("Login");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		tFLogin = new JTextField();
+		tFLogin.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		tFSenha = new JTextField();
+		tFSenha.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -90,21 +96,21 @@ public class TelaInsercaoEdicaoFacilitador extends JFrame {
 						.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tFCPF, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblCPF))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblRG)
-								.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
+								.addComponent(tFRG, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
 						.addComponent(lblFormacao)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 207, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tFLogin, GroupLayout.PREFERRED_SIZE, 207, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblLogin))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblSenha)
-								.addComponent(textField_4, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)))
+								.addComponent(tFSenha, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)))
 						.addComponent(lblNomeCompleto)
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addContainerGap(333, Short.MAX_VALUE)
@@ -130,8 +136,8 @@ public class TelaInsercaoEdicaoFacilitador extends JFrame {
 						.addComponent(lblRG))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tFCPF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tFRG, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblFormacao)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -142,8 +148,8 @@ public class TelaInsercaoEdicaoFacilitador extends JFrame {
 						.addComponent(lblSenha))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tFLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tFSenha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
 					.addComponent(btnSalvar))
 		);
