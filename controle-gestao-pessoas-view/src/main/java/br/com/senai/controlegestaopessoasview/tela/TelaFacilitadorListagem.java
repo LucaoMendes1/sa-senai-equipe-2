@@ -49,17 +49,11 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 				telaFacilitadorInsercaoEdicao.setVisible(true);
 				setVisible(false);
 			}
 				
 		});	
-=======
-			} 
-		});
-		
->>>>>>> 7784d94f3f6251cf693a961302187cb2a99ac7f7
 		txtFiltro = new JTextField();
 		txtFiltro.setColumns(10);
 		
@@ -71,7 +65,6 @@ public class TelaFacilitadorListagem extends JFrame {
 				
 			List<Facilitador> facilitadores = client.listarPor("");
 			System.out.println("teste");
-				
 				
 			}
 		});
