@@ -1,6 +1,5 @@
 package br.com.senai.controlegestaopessoasview.tela;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
@@ -10,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -19,8 +19,6 @@ import org.springframework.stereotype.Component;
 import br.com.senai.controlegestaopessoasview.client.UsuarioClient;
 import br.com.senai.controlegestaopessoasview.dto.Tipo;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
-import ch.qos.logback.core.net.LoginAuthenticator;
-import javax.swing.JPasswordField;
 
 @Component
 public class TelaDeLogin extends JFrame implements Serializable{
@@ -31,6 +29,8 @@ public class TelaDeLogin extends JFrame implements Serializable{
 	
 	@Autowired
 	private UsuarioClient client;
+	
+	
 	private JPasswordField psSenha;
 
 	/**
