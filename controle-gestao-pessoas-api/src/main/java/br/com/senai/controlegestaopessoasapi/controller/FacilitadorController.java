@@ -60,5 +60,18 @@ public class FacilitadorController {
 		this.service.removerPor(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	
+	@GetMapping(value = "/listar")
+	public ResponseEntity<?> listarPor(
+			String nome){
+		return ResponseEntity.ok(mapConverter
+				.toJsonList(service.listarPor(nome)));
+		
+	}
+	
+	
+	
+	
 
 }

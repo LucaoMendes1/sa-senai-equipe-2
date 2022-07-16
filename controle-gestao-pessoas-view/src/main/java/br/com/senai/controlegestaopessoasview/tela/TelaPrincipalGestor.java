@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
@@ -23,6 +24,9 @@ public class TelaPrincipalGestor extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUserStatus;
 	private JTextField txtNomeUsuario;
+	
+	@Autowired
+	private TelaDeLogin telaLogin;
 	
 	
 	public TelaPrincipalGestor() {
@@ -56,6 +60,7 @@ public class TelaPrincipalGestor extends JFrame {
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
+				telaLogin.setVisible(true);
 			}
 		});
 		
