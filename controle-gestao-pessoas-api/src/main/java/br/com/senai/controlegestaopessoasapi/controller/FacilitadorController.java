@@ -60,6 +60,8 @@ public class FacilitadorController {
 		return ResponseEntity.ok(mapConverter
 				.toJsonList(service.listarPor(nomeCompleto)));
 	}
+	
+	
 
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<?> excluirPor(@PathVariable(name = "id") Integer id) {

@@ -49,11 +49,15 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				telaFacilitadorInsercaoEdicao.setVisible(true);
 				setVisible(false);
 			}
 				
 		});	
+
+
+
 		txtFiltro = new JTextField();
 		txtFiltro.setColumns(10);
 		
@@ -63,8 +67,9 @@ public class TelaFacilitadorListagem extends JFrame {
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-			List<Facilitador> facilitadores = client.listarPor("");
-			System.out.println("teste");
+			List<Facilitador> facilitadores = client.listarPor(txtFiltro.getText());
+			
+				
 				
 			}
 		});
