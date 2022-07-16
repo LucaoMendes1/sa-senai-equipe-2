@@ -53,7 +53,7 @@ public class FacilitadorController {
 		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(id)));
 	}
 	
-	@GetMapping(value = "/nomeCompleto/{nomeCompleto}")
+	@GetMapping(value = "/nome/{nomeCompleto}")
 	public ResponseEntity<?> listarPor(
 			@PathVariable(name = "nomeCompleto")
 			String nomeCompleto){

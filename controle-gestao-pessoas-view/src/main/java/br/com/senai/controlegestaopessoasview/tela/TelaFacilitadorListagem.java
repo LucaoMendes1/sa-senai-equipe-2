@@ -67,9 +67,13 @@ public class TelaFacilitadorListagem extends JFrame {
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+<<<<<<< HEAD
 			List<Facilitador> facilitadores = client.listarPor(txtFiltro.getText());
 			
 				
+=======
+			List<Facilitador> facilitadores = client.listarPor("");
+>>>>>>> dec5889a6cc9f769051a5a0c7e5ed071aadd0620
 				
 			}
 		});
