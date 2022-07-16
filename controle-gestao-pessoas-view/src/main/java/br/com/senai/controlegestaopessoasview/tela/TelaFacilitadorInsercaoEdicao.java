@@ -10,17 +10,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
-import javax.swing.JPasswordField;
 
 @Component
 public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializable{
@@ -34,6 +35,11 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 	
 	@Autowired
 	private FacilitadorClient client;
+	
+	@Lazy
+	@Autowired
+	private TelaFacilitadorListagem listagem;
+	
 	private JPasswordField psSenha;
 
 	/**
@@ -91,6 +97,8 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				listagem.setVisible(true);
 			}
 		});
 		

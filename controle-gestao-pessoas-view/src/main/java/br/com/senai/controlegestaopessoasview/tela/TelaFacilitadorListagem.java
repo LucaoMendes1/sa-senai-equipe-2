@@ -64,7 +64,6 @@ public class TelaFacilitadorListagem extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 			List<Facilitador> facilitadores = client.listarPor("");
-			System.out.println("teste");
 				
 			}
 		});

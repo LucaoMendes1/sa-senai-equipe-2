@@ -1,14 +1,11 @@
 package br.com.senai.controlegestaopessoasview.client;
 
-import javax.swing.JOptionPane;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.senai.controlegestaopessoasview.dto.Tipo;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 @Component

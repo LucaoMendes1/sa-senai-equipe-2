@@ -29,13 +29,10 @@ public class TelaPrincipalGestor extends JFrame {
 	
 	
 	@Autowired
-	private TelaPrincipalFacilitador tpFacilitador;
+	private TelaFacilitadorListagem tpFacilitadorListagem;
 	
 	@Autowired
 	private TelaTreinamentoListagem telaTreinamentoListagem;
-	
-
-	
 	
 	public TelaPrincipalGestor() {
 		setTitle("Principal (Acesso GESTOR)- SA System 1.2");
@@ -48,11 +45,7 @@ public class TelaPrincipalGestor extends JFrame {
 		JButton btnFacilitadores = new JButton("Facilitadores");
 		btnFacilitadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				tpFacilitador.setVisible(true);
-				
-				
-				
+				tpFacilitadorListagem.setVisible(true);
 			}
 		});
 		
@@ -61,8 +54,6 @@ public class TelaPrincipalGestor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				telaTreinamentoListagem.setVisible(true);
-				
-				
 			}
 		});
 		
