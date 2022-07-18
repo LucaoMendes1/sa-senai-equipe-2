@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -24,38 +25,32 @@ public class Facilitador {
 	private Integer id;
 	
 	@Column(name="nome_completo")
-	@Max(value = 50, message = "O nome completo deve ter no máximo 50 caracteres")
-	@Min(value = 2, message = "O nome completo deve ter pelo menos 2 caracteres")
+	@Size(max = 50, min = 2, message = "O login deve ter pelo menos 2 e no máximo 50 caracteres")
 	@NotEmpty(message = "O nome completo é obrigatório")
 	private String nomeCompleto;
 	
 	@Column(name="cpf")
-	@Max(value = 14, message = "O cpf deve ter 14 caracteres")
-	@Min(value = 14, message = "O cpf deve ter 14 caracteres")
+	@Size(max = 14, min = 14, message = "O login deve ter pelo menos 14 e no máximo 14 caracteres")
 	@NotEmpty(message = "O cpf é obrigatório")
 	private String cpf;
 	
 	@Column(name="rg")
-	@Max(value = 10, message = "O rg deve ter 10 caracteres")
-	@Min(value = 10, message = "O rg deve ter 10 caracteres")
+	@Size(max = 10, min = 10, message = "O login deve ter pelo menos 10 e no máximo 10 caracteres")
 	@NotEmpty(message = "O cpf é obrigatório")
 	private String rg;
 	
 	@Column(name="formacao")
-	@Max(value = 1000, message = "A formação deve ter no máximo 1000 caracteres")
-	@Min(value = 2, message = "A formação deve ter no mínimo 2 caracteres")
+	@Size(max = 1000, min = 2, message = "O login deve ter pelo menos 2 e no máximo 1000 caracteres")
 	@NotEmpty(message = "O cpf é obrigatório")
 	private String formacao;
 	
 	@Column(name="login")
-	@Max(value = 20, message = "O login deve ter no máxio 20 caracteres")
-	@Min(value = 2, message = "O login deve ter pelo menos 2 caracteres")
+	@Size(max = 20, min = 2, message = "O login deve ter pelo menos 2 e no máximo 20 caracteres")
 	@NotEmpty(message = "O login é obrigatório")
 	private String login;
 	
 	@Column(name="senha")
-	@Max(value = 10, message = "A senha deve ter no máxio 10 caracteres")
-	@Min(value = 2, message = "A senha deve ter pelo menos 2 caracteres")
+	@Size(max = 10, min = 2, message = "O login deve ter pelo menos 2 e no máximo 10 caracteres")
 	@NotEmpty(message = "A senha é obrigatória")
 	private String senha;
 	
