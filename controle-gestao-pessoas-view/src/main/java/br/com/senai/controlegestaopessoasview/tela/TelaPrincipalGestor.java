@@ -13,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
@@ -25,6 +26,7 @@ public class TelaPrincipalGestor extends JFrame {
 	private JTextField txtUserStatus;
 	private JTextField txtNomeUsuario;
 	
+	@Lazy
 	@Autowired
 	private TelaDeLogin telaLogin;
 	
