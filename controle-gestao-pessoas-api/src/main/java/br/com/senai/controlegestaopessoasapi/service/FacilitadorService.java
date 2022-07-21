@@ -84,7 +84,15 @@ public class FacilitadorService {
 			String nome){
 		return repository.listarPor("%" + nome + "%"); 
 	}
-
+	
+	public Facilitador listar(
+			@NotEmpty(message = "O nome da busca é obrigatório")
+			@NotBlank(message = "O nome não pode conter espaço em branco")
+			String login) 
+	{
+		return repository.buscarPor(login);
+		
+	}
 
 
 
