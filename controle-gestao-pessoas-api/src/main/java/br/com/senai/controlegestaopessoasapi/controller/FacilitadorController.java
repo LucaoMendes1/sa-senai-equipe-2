@@ -67,4 +67,10 @@ public class FacilitadorController {
 				.toJsonList(service.listarPor(nome)));
 		
 	}
+	
+	@GetMapping()
+	public ResponseEntity<?> buscarTodos(){
+		return ResponseEntity.ok(mapConverter
+				.toJsonList(service.buscarTodos()));
+	}
 }

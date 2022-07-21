@@ -91,6 +91,24 @@ public class FacilitadorClient {
 		
 		return facilitadores;
 	}
+	
 
+	@SuppressWarnings("unchecked")
+	public List<Facilitador> buscarTodos(){
+		
+		RestTemplate httpClient = builder.build();
+		
+		List<LinkedHashMap<String, Object>> response = httpClient.getForObject(
+				urlEndpoint + resource, List.class);
+		
+		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
+		
+		for (LinkedHashMap<String, Object> item : response) {
+			Facilitador facilitador = mapper.convertValue(item, Facilitador.class);
+			facilitadores.add(facilitador);
+		}
+		
+		return facilitadores;
+	}
 
 }

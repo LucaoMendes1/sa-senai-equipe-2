@@ -1,6 +1,7 @@
 package br.com.senai.controlegestaopessoasview.tela;
 
-import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,6 +15,12 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
+import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
+import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+
 public class TelaInsercaoEdicaoTreinamento extends JFrame {
 
 	/**
@@ -23,22 +30,12 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	private JPanel contentPane;
 	private JTextField tFTitulo;
 	private JTextField tFDataDeRealizacao;
+	
+	@Autowired
+	private TreinamentoClient treinamentoClient;
+	
+	@Autowired FacilitadorClient facilitadorClient;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaInsercaoEdicaoTreinamento frame = new TelaInsercaoEdicaoTreinamento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -65,7 +62,12 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		
 		JLabel lblFacilitador = new JLabel("Facilitador");
 		
-		JComboBox comboBoxFacilitador = new JComboBox();
+		JComboBox<Facilitador> comboBoxFacilitador = new JComboBox<Facilitador>();
+		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
+		facilitadores = facilitadorClient.buscarTodos();
+		for (Facilitador facilitador : facilitadores) {
+			comboBoxFacilitador.addItem(facilitador);
+		}
 		
 		JLabel lblNDescricaoLonga = new JLabel("Descrição Longa");
 		
