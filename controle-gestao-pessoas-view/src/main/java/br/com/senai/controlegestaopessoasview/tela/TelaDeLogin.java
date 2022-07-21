@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.UsuarioClient;
@@ -30,6 +31,8 @@ public class TelaDeLogin extends JFrame implements Serializable{
 	@Autowired
 	private UsuarioClient client;
 	
+
+	@Lazy
 	@Autowired
 	private TelaPrincipalGestor tpGestor;
 	
@@ -96,4 +99,10 @@ public class TelaDeLogin extends JFrame implements Serializable{
 		psSenha.setBounds(33, 141, 220, 40);
 		contentPane.add(psSenha);
 	}
+	
+	public void enviarUsuario() {
+		
+	}
+	
+	
 }

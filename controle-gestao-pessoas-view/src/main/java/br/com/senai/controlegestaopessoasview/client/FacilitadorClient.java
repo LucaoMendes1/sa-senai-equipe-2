@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 
 
@@ -26,7 +27,12 @@ public class FacilitadorClient {
 	@Autowired
 	private ObjectMapper mapper;
 	
+<<<<<<< HEAD
 	private final String resource = "/facilitadores";
+=======
+	
+	private final String resource = "/facilitador";
+>>>>>>> e6d8ae75f44c8ab1230595302d2344cba5c6500a
 	
 	@Autowired
 	private RestTemplateBuilder builder;
@@ -57,6 +63,20 @@ public class FacilitadorClient {
 		httpClient.delete(urlEndpoint + resource 
 				+ "/id/" + facilitadorSalvo.getId());
 	}
+	
+	
+	public Facilitador buscarPeloId(Usuario usuario) {
+
+		RestTemplate httpClient = builder.build();
+		
+	    Facilitador facilitadorLogado = httpClient.postForObject(
+	    		urlEndpoint + resource, usuario, Facilitador.class);
+	    
+	    return facilitadorLogado;
+		
+	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<Facilitador> listarPor(String nomeCompleto){

@@ -25,5 +25,18 @@ public interface FacilitadorRepository extends JpaRepository<Facilitador, Intege
 	Facilitador buscarPor(@Param("id") Integer id);
 
 	
+<<<<<<< HEAD
 
+=======
+	@Query(value = 
+			"SELECT f "
+			+ "FROM Facilitador f "
+			+ "WHERE f.login = :login")
+	Facilitador buscarPor(@Param("login") String login);
+	
+	
+>>>>>>> 38b65b64a57d0d5566b671128d0d27e7b640b3e7
 }
+
+	
+	
