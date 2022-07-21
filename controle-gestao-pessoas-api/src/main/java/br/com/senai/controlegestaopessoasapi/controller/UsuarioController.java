@@ -23,7 +23,7 @@ public class UsuarioController {
 	
 	@PostMapping
 	public ResponseEntity<?> logar(@RequestBody Usuario usuario) {
-
+		System.err.println(usuario);
 		return ResponseEntity.ok(service.autenticar(usuario));
 	}
 

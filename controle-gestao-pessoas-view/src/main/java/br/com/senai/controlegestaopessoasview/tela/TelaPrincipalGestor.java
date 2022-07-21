@@ -13,10 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
 import org.springframework.context.annotation.Lazy;
->>>>>>> e6d8ae75f44c8ab1230595302d2344cba5c6500a
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
@@ -35,10 +32,11 @@ public class TelaPrincipalGestor extends JFrame {
 	@Autowired
 	private TelaDeLogin telaLogin;
 	
-	
+	@Lazy
 	@Autowired
 	private TelaFacilitadorListagem tpFacilitadorListagem;
 	
+	@Lazy
 	@Autowired
 	private TelaTreinamentoListagem telaTreinamentoListagem;
 	
@@ -69,12 +67,9 @@ public class TelaPrincipalGestor extends JFrame {
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
-<<<<<<< HEAD
 				
 				
-=======
 				telaLogin.setVisible(true);
->>>>>>> e6d8ae75f44c8ab1230595302d2344cba5c6500a
 			}
 		});
 		

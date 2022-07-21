@@ -13,10 +13,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
-import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 
 @Component
 public class TelaPrincipalFacilitador extends JFrame {
@@ -31,9 +31,11 @@ public class TelaPrincipalFacilitador extends JFrame {
 	private JTextField txtUserStatus;
 	private JTextField txtNomeUsuario;
 	
+	@Lazy
 	@Autowired
 	private TelaDeLogin telaLogin;
 	
+	@Lazy
 	@Autowired
 	private TelaFacilitadorEdicao telaFacilitadorEdicao;
 	
@@ -53,15 +55,12 @@ public class TelaPrincipalFacilitador extends JFrame {
 		btnFacilitador = new JButton("Facilitadores");
 		btnFacilitador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
 				
 				telaFacilitadorListagem.setVisible(true);
 				
-=======
 //				Facilitador facilitadorNovo = Facilitador(client.buscarPeloId());
 //				
 //				telaFacilitadorEdicao.carregarFacilitador(telaLogin.);
->>>>>>> e6d8ae75f44c8ab1230595302d2344cba5c6500a
 				
 				
 			}

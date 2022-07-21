@@ -25,7 +25,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 					+ "WHERE u.login = :login "
 					+ "AND u.senha = :senha")
 	Usuario buscarPor(@Param("login") String login, @Param("senha") String senha);
-	
-	
-
 }
