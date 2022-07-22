@@ -80,7 +80,7 @@ public class FacilitadorClient {
 		RestTemplate httpClient = builder.build();
 		
 		List<LinkedHashMap<String, Object>> response = httpClient.getForObject(
-				urlEndpoint + resource + "/nome/" + nomeCompleto, List.class);
+				urlEndpoint + resource + "/listar/" + nomeCompleto, List.class);
 		
 		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
 		
@@ -110,5 +110,7 @@ public class FacilitadorClient {
 		
 		return facilitadores;
 	}
+	
+	
 
 }
