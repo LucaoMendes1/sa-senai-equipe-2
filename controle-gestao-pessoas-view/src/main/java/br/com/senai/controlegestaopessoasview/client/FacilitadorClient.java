@@ -16,8 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
-
-
 @Component
 public class FacilitadorClient {
 	
@@ -72,8 +70,6 @@ public class FacilitadorClient {
 		
 	}
 	
-	
-	
 	@SuppressWarnings("unchecked")
 	public List<Facilitador> listarPor(String nomeCompleto){
 		
@@ -91,7 +87,6 @@ public class FacilitadorClient {
 		
 		return facilitadores;
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	public List<Facilitador> buscarTodos(){

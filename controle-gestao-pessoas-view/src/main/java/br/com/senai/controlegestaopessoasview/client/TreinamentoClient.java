@@ -24,14 +24,14 @@ public class TreinamentoClient {
 	@Autowired
 	private ObjectMapper mapper;
 	
-	private final String resource = "/treinamento";
+	private final String resource = "/treinamentos";
 	
 	@Autowired
 	private RestTemplateBuilder builder;
 	
 	public Treinamento inserir(
 			Treinamento novoTreinamento) {
-		
+		System.err.println("estou chegando aqui ==============================>");
 		RestTemplate httpClient = builder.build();
 		
 		URI uri = httpClient.postForLocation(
@@ -92,5 +92,4 @@ public class TreinamentoClient {
 		
 		return treinamentos;
 	}
-
 }

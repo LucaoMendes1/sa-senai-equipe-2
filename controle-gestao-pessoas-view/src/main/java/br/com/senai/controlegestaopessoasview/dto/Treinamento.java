@@ -17,5 +17,7 @@ public class Treinamento {
 	private LocalDate dataLocalizacao;
 
 	private Facilitador facilitador;
+	
+	private String titulo;
 
 }

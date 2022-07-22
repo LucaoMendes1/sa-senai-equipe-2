@@ -1,8 +1,13 @@
 package br.com.senai.controlegestaopessoasview.tela;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -16,11 +21,16 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+import br.com.senai.controlegestaopessoasview.dto.Treinamento;
 
+@Component
 public class TelaInsercaoEdicaoTreinamento extends JFrame {
 
 	/**
@@ -34,7 +44,10 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	@Autowired
 	private TreinamentoClient treinamentoClient;
 	
-	@Autowired FacilitadorClient facilitadorClient;
+	@Autowired
+	private FacilitadorClient facilitadorClient;
+	
+	private JComboBox<Facilitador> comboBoxFacilitador;
 
 
 	/**
@@ -62,18 +75,27 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		
 		JLabel lblFacilitador = new JLabel("Facilitador");
 		
-		JComboBox<Facilitador> comboBoxFacilitador = new JComboBox<Facilitador>();
-		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
-		facilitadores = facilitadorClient.buscarTodos();
-		for (Facilitador facilitador : facilitadores) {
-			comboBoxFacilitador.addItem(facilitador);
-		}
+		comboBoxFacilitador = new JComboBox<Facilitador>();
 		
 		JLabel lblNDescricaoLonga = new JLabel("Descrição Longa");
 		
 		JTextArea tADescricaoLonga = new JTextArea();
 		
 		JButton btnNSalvar = new JButton("Salvar");
+		btnNSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Treinamento novoTreinamento = new Treinamento();
+				novoTreinamento.setDescricaoLonga(tADescricaoLonga.getText());
+				novoTreinamento.setFacilitador((Facilitador)comboBoxFacilitador.getSelectedItem());
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+				String date = tFDataDeRealizacao.getText();
+				LocalDate localDate = LocalDate.parse(date, formatter);
+				novoTreinamento.setDataLocalizacao(localDate);
+				novoTreinamento.setTitulo(tFTitulo.getText());
+				System.err.println("oioioioioioioioioioioi");
+				treinamentoClient.inserir(novoTreinamento);
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -139,5 +161,13 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	@PostConstruct
+	public void inicializar() {
+		List<Facilitador> facilitadores = new ArrayList<Facilitador>();
+		facilitadores = facilitadorClient.buscarTodos();
+		for (Facilitador facilitador : facilitadores) {
+			comboBoxFacilitador.addItem(facilitador);
+		}
 	}
 }
