@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
+import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 @Component
 public class TelaPrincipalFacilitador extends JFrame {
@@ -40,6 +42,9 @@ public class TelaPrincipalFacilitador extends JFrame {
 	private TelaFacilitadorEdicao telaFacilitadorEdicao;
 	
 	@Autowired
+	private TelaFacilitadorInsercaoEdicao telaFacilitadorInsercaoEdicao;
+	
+	@Autowired
 	private FacilitadorClient client;
 	
 
@@ -58,9 +63,9 @@ public class TelaPrincipalFacilitador extends JFrame {
 				
 				telaFacilitadorListagem.setVisible(true);
 				
-//				Facilitador facilitadorNovo = Facilitador(client.buscarPeloId());
-//				
-//				telaFacilitadorEdicao.carregarFacilitador(telaLogin.);
+				
+				telaFacilitadorInsercaoEdicao.montarTela(null);
+			
 				
 				
 			}
@@ -113,4 +118,17 @@ public class TelaPrincipalFacilitador extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+	public void carregarTela(Facilitador facilitador) {
+		txtNomeUsuario.setText(facilitador.getNomeCompleto());
+		this.setVisible(true);
+	}
+	
+	public void armazenarFacilitador(Facilitador facilitador) {
+		
+//           telaFacilitadorInsercaoEdicao.montarTela(facilitador);
+		
+	}
+	
+	
 }

@@ -80,30 +80,43 @@ public class TelaFacilitadorListagem extends JFrame {
 		
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
 		
 		JLabel lblFiltro = new JLabel("Filtro");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(table, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGap(366)
 							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(btnRemover, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(btnListar, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGap(23)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(lblFiltro, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 398, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED, 409, Short.MAX_VALUE)
 									.addComponent(btnAdicionar))
-								.addComponent(txtFiltro, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-								.addComponent(table, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))))
+								.addComponent(txtFiltro, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))))
 					.addGap(28))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -126,7 +139,7 @@ public class TelaFacilitadorListagem extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRemover)
 						.addComponent(btnEditar))
-					.addContainerGap(24, Short.MAX_VALUE))
+					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

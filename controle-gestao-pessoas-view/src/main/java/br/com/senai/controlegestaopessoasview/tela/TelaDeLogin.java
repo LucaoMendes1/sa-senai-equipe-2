@@ -17,9 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.client.UsuarioClient;
+import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 import br.com.senai.controlegestaopessoasview.dto.Tipo;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
+import ch.qos.logback.core.joran.conditional.IfAction;
 
 @Component
 public class TelaDeLogin extends JFrame implements Serializable{
@@ -31,10 +34,16 @@ public class TelaDeLogin extends JFrame implements Serializable{
 	@Autowired
 	private UsuarioClient client;
 	
+	@Autowired
+	private FacilitadorClient clienteFacilitador;
 
 	@Lazy
 	@Autowired
 	private TelaPrincipalGestor tpGestor;
+	
+	@Autowired
+	private TelaFacilitadorInsercaoEdicao telaFacilitadorEdicao;
+	
 	
 	@Autowired
 	private TelaPrincipalFacilitador tpFacilitador;
@@ -74,7 +83,13 @@ public class TelaDeLogin extends JFrame implements Serializable{
 						tpGestor.carregarTela(usuarioLogado);
 					}else if (usuarioLogado.getTipo() == Tipo.FACILITADOR) {
 						
-						tpFacilitador.setVisible(true);						
+						Facilitador facilitadorEnviado =  enviarFacilitador(usuarioLogado);
+						
+						tpFacilitador.setVisible(true);	
+						telaFacilitadorEdicao.montarTela(facilitadorEnviado);
+						 
+					    tpFacilitador.carregarTela(facilitadorEnviado);
+						
 						
 					}
 					contentPane.setVisible(false);
@@ -100,7 +115,14 @@ public class TelaDeLogin extends JFrame implements Serializable{
 		contentPane.add(psSenha);
 	}
 	
-	public void enviarUsuario() {
+	
+	
+	public Facilitador enviarFacilitador(Usuario usuarioBusca) {
+		Facilitador facilitadorEncontrado = new Facilitador();
+		
+		facilitadorEncontrado =  clienteFacilitador.buscarFacilitador(usuarioBusca);
+		
+		return facilitadorEncontrado;
 		
 	}
 	
