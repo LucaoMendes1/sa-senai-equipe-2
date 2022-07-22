@@ -60,8 +60,8 @@ public class FacilitadorController {
 	}
 	
 	
-	@GetMapping(value = "/listar")
-	public ResponseEntity<?> listarPor(
+	@GetMapping(value = "/listar/{nome}")
+	public ResponseEntity<?> listarPor(@PathVariable(name = "nome")
 			String nome){
 		return ResponseEntity.ok(mapConverter
 				.toJsonList(service.listarPor(nome)));
