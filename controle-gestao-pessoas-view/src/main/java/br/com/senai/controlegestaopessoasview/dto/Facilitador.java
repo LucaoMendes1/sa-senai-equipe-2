@@ -22,4 +22,8 @@ public class Facilitador {
 
 	private String senha;
 
+	@Override
+	public String toString() {
+		return id + " - " + nomeCompleto;
+	}
 }

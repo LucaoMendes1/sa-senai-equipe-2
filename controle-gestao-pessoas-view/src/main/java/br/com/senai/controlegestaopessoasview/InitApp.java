@@ -7,15 +7,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import br.com.senai.controlegestaopessoasview.tela.TelaDeLogin;
+import br.com.senai.controlegestaopessoasview.tela.TelaInsercaoEdicaoTreinamento;
 
 
 @SpringBootApplication
 public class InitApp {
 
 	@Autowired
-	private TelaDeLogin telaDeLogin;
-	
+	private TelaInsercaoEdicaoTreinamento telaDeLogin;
 	public static void main(String[] args) {
 		SpringApplicationBuilder builder = 
 				new SpringApplicationBuilder(InitApp.class);

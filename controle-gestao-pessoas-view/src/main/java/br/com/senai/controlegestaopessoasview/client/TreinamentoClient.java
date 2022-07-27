@@ -24,14 +24,14 @@ public class TreinamentoClient {
 	@Autowired
 	private ObjectMapper mapper;
 	
-	private final String resource = "/treinamento";
+	private final String resource = "/treinamentos";
 	
 	@Autowired
 	private RestTemplateBuilder builder;
 	
 	public Treinamento inserir(
 			Treinamento novoTreinamento) {
-		
+		System.err.println("estou chegando aqui ==============================>");
 		RestTemplate httpClient = builder.build();
 		
 		URI uri = httpClient.postForLocation(
@@ -74,5 +74,22 @@ public class TreinamentoClient {
 		
 		return treinamentos;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Treinamento> buscarTodos(){
+		
+		RestTemplate httpClient = builder.build();
+		
+		List<LinkedHashMap<String, Object>> response = httpClient.getForObject(
+				urlEndpoint + resource, List.class);
+		
+		List<Treinamento> treinamentos = new ArrayList<Treinamento>();
+		
+		for (LinkedHashMap<String, Object> item : response) {
+			Treinamento treinamento = mapper.convertValue(item, Treinamento.class);
+			treinamentos.add(treinamento);
+		}
+		
+		return treinamentos;
+	}
 }
