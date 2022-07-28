@@ -81,20 +81,22 @@ public class TelaDeLogin extends JFrame implements Serializable{
 				if (usuarioLogado != null) {
 					if (usuarioLogado.getTipo() == Tipo.GESTOR) {
 						tpGestor.carregarTela(usuarioLogado);
-					}else if (usuarioLogado.getTipo() == Tipo.FACILITADOR) {
+					}else{
 						
 						Facilitador facilitadorEnviado =  enviarFacilitador(usuarioLogado);
 						
 						tpFacilitador.setVisible(true);	
-						telaFacilitadorEdicao.montarTela(facilitadorEnviado);
-						 
+						
+						
 					    tpFacilitador.carregarTela(facilitadorEnviado);
+					    
+					    
+					    
+					    tpFacilitador.armazenarFacilitador(facilitadorEnviado);
+					    
 						
 						
 					}
-					contentPane.setVisible(false);
-				}else {
-					JOptionPane.showMessageDialog(contentPane, "Usuário não encontrado!");
 				}
 			}
 		});
@@ -125,6 +127,9 @@ public class TelaDeLogin extends JFrame implements Serializable{
 		return facilitadorEncontrado;
 		
 	}
+	
+	
+	
 	
 	
 }

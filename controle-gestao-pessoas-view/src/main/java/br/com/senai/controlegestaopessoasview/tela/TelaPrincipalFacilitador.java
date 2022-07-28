@@ -47,6 +47,9 @@ public class TelaPrincipalFacilitador extends JFrame {
 	@Autowired
 	private FacilitadorClient client;
 	
+	
+	private Facilitador facilitador;
+	
 
 	
 	public TelaPrincipalFacilitador() {
@@ -61,10 +64,12 @@ public class TelaPrincipalFacilitador extends JFrame {
 		btnFacilitador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				telaFacilitadorListagem.setVisible(true);
+				telaFacilitadorEdicao.setVisible(true);
+				telaFacilitadorEdicao.montarTela(facilitador);
 				
 				
-				telaFacilitadorInsercaoEdicao.montarTela(null);
+				
+				
 			
 				
 				
@@ -122,11 +127,19 @@ public class TelaPrincipalFacilitador extends JFrame {
 	public void carregarTela(Facilitador facilitador) {
 		txtNomeUsuario.setText(facilitador.getNomeCompleto());
 		this.setVisible(true);
+		
+		this.facilitador = facilitador;
+		
+		
 	}
 	
-	public void armazenarFacilitador(Facilitador facilitador) {
+	public Facilitador armazenarFacilitador(Facilitador facilitador) {
 		
-//           telaFacilitadorInsercaoEdicao.montarTela(facilitador);
+		Facilitador facilitadorArmazenado = facilitador;
+		
+		return facilitadorArmazenado;
+		
+		
 		
 	}
 	
