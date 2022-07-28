@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+
 import br.com.senai.controlegestaopessoasapi.repository.UsuarioRepository;
 import br.com.senai.controlegestaopessoasapi.service.UsuarioService;
 
@@ -28,6 +30,11 @@ public class ControleGestaoPessoasApiApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ac) {
 		return args -> {
 		};
+	}
+	
+	@Bean
+	public Hibernate5Module jsonHibernate5Module() {
+		return new Hibernate5Module();
 	}
 
 }

@@ -21,71 +21,52 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.senai.controlegestaopessoasapi.entity.Treinamento;
 import br.com.senai.controlegestaopessoasapi.service.TreinamentoService;
 
-
-
 @RestController
 @RequestMapping("/treinamentos")
 public class TreinamentoController {
-	
+
 	@Autowired
 	private TreinamentoService service;
-	
+
 	@Autowired
 	private ObjectMapper mapper;
-	
+
 	@Autowired
 	private MapConverter mapConverter;
-	
+
 	@PostMapping
-	public ResponseEntity<?> inserir(
-			@RequestBody
-			Map<String, Object> treinamentoMap){
-		Treinamento novoTreinamento = mapper
-				.convertValue(treinamentoMap, Treinamento.class);		
+	public ResponseEntity<?> inserir(@RequestBody Treinamento novoTreinamento) {
+		System.err.println(novoTreinamento);
+		System.err.println("opa ================");
+
 		Treinamento treinamentoSalvo = service.inserir(novoTreinamento);
-		return ResponseEntity.created(
-					URI.create(
-							"/treinamentos/id/" + treinamentoSalvo.getId()
-					)
-				).build();
+		return ResponseEntity.created(URI.create("/treinamentos/id/" + treinamentoSalvo.getId())).build();
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<?> alterar(
-			@RequestBody 
-			Map<String, Object> treinamentoMap){
-		Treinamento treinamentoSalvo = mapper
-				.convertValue(treinamentoMap, Treinamento.class);
+	public ResponseEntity<?> alterar(@RequestBody Map<String, Object> treinamentoMap) {
+		Treinamento treinamentoSalvo = mapper.convertValue(treinamentoMap, Treinamento.class);
 		Treinamento treinamentoAtualizado = service.alterar(treinamentoSalvo);
 		return ResponseEntity.ok(mapConverter.toJsonMap(treinamentoAtualizado));
 	}
-	
+
 	@GetMapping("/id/{id}")
-	public ResponseEntity<?> buscarPor(
-			@PathVariable("id") Integer id) 
-					throws JsonProcessingException{
+	public ResponseEntity<?> buscarPor(@PathVariable("id") Integer id) throws JsonProcessingException {
 		Treinamento treinamentoEncontrado = service.buscarPor(id);
 		String json = mapper.writeValueAsString(treinamentoEncontrado);
 		JSONObject jsonObj = new JSONObject(json);
-		return ResponseEntity.ok(jsonObj.toMap());		
+		return ResponseEntity.ok(jsonObj.toMap());
 	}
-	
+
 	@GetMapping(value = "/titulo/{titulo}")
-	public ResponseEntity<?> listarPor(
-			@PathVariable(name = "titulo")
-			String titulo){
-		return ResponseEntity.ok(mapConverter
-				.toJsonList(service.listarPor(titulo)));
+	public ResponseEntity<?> listarPor(@PathVariable(name = "titulo") String titulo) {
+		return ResponseEntity.ok(mapConverter.toJsonList(service.listarPor(titulo)));
 	}
-	
-	
-	
+
 	@DeleteMapping(value = "/id/{id}")
-	public ResponseEntity<?> removerPor(
-			@PathVariable(name = "id")
-			Integer id){
+	public ResponseEntity<?> removerPor(@PathVariable(name = "id") Integer id) {
 		this.service.removerPor(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 }
