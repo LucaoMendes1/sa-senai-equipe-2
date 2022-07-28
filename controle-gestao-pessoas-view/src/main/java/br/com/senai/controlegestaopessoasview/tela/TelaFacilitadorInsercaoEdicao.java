@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 
 @Component
@@ -31,7 +33,7 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 	private JTextField edtNomeCompleto;
 	private JTextField edtCpf;
 	private JTextField edtRg;
-	private JTextField txtLogin;
+	private JTextField edtLogin;
 	
 	@Autowired
 	private FacilitadorClient client;
@@ -42,19 +44,19 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 	@Autowired
 	private TelaFacilitadorListagem listagem;
 	
-	private JPasswordField txtSenha;
+	private JPasswordField edtSenha;
 	
 	
 	private JTextField edtFormacao;
 	
 	public void colocarEmEdicao(
 			Facilitador facilitadorSalvo) {
-		this.edtNomeCompleto.setText(
-				facilitadorSalvo.getNomeCompleto());
-		this.edtCpf.setText(
-				facilitadorSalvo.getCpf());
+		this.edtNomeCompleto.setText(facilitadorSalvo.getUsuario().getNomeCompleto());
+		this.edtCpf.setText(facilitadorSalvo.getCpf());
 		this.edtRg.setText(facilitadorSalvo.getRg());
 		this.edtFormacao.setText(facilitadorSalvo.getFormacao());
+		this.edtLogin.setText(facilitadorSalvo.getUsuario().getLogin());
+		this.edtSenha.setText(facilitadorSalvo.getUsuario().getSenha());
 		this.facilitadorSalvo = facilitadorSalvo;
 		setVisible(true);
 	}
@@ -93,18 +95,28 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Facilitador novoFacilitador = new Facilitador();
+				Usuario novoUsuario = new Usuario();
+				novoFacilitador.setUsuario(novoUsuario);
 				novoFacilitador.setCpf(edtCpf.getText());
 				novoFacilitador.setFormacao(edtFormacao.getText());
-				novoFacilitador.setLogin(txtLogin.getText());
-				novoFacilitador.setSenha(txtSenha.getText());
-				novoFacilitador.setNomeCompleto(edtNomeCompleto.getText());
+				novoFacilitador.getUsuario().setLogin(edtLogin.getText());
+				novoFacilitador.getUsuario().setSenha(edtSenha.getText());
+				novoFacilitador.getUsuario().setNomeCompleto(edtNomeCompleto.getText());
 				novoFacilitador.setRg(edtRg.getText());
-				client.inserir(novoFacilitador);
+				if (facilitadorSalvo != null) {
+					novoFacilitador.setId(facilitadorSalvo.getId());
+					novoFacilitador.getUsuario().setId(facilitadorSalvo.getUsuario().getId());
+					client.alterar(novoFacilitador);
+					JOptionPane.showMessageDialog(contentPane, "A alteração foi concluída com sucesso!");
+				}else {
+					client.inserir(novoFacilitador);
+					JOptionPane.showMessageDialog(contentPane, "Novo facilitador inserido com sucesso!");
+				}
 			}
 		});
 		
-		txtLogin = new JTextField();
-		txtLogin.setColumns(10);
+		edtLogin = new JTextField();
+		edtLogin.setColumns(10);
 		
 		
 		JButton btnConsultar = new JButton("Consultar");
@@ -115,7 +127,7 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 			}
 		});
 		
-		txtSenha = new JPasswordField();
+		edtSenha = new JPasswordField();
 		
 		edtFormacao = new JTextField();
 		edtFormacao.setColumns(10);
@@ -131,10 +143,10 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblLogin, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtLogin, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE))
+										.addComponent(edtLogin, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE))
 									.addGap(26)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtSenha, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
+										.addComponent(edtSenha, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblSenha, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 									.addGap(15))
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
@@ -184,8 +196,8 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 						.addComponent(lblSenha))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtSenha, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtLogin, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+						.addComponent(edtSenha, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(edtLogin, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
 					.addGap(32)
 					.addComponent(btnSalvar)
 					.addContainerGap())
@@ -196,13 +208,20 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 	public void montarTela(Facilitador facilitador) {
 		
 		edtCpf.setText(facilitador.getCpf());
-		edtNomeCompleto.setText(facilitador.getNomeCompleto());
+		edtNomeCompleto.setText(facilitador.getUsuario().getNomeCompleto());
 		edtRg.setText(facilitador.getRg());
-		txtLogin.setText(facilitador.getSenha());
-		txtSenha.setText(facilitador.getSenha());
+		edtLogin.setText(facilitador.getUsuario().getSenha());
+		edtSenha.setText(facilitador.getUsuario().getSenha());
 		edtFormacao.setText(facilitador.getFormacao());
-		
-		
-		
+	}
+	
+	public void limparFormulario() {
+		this.edtNomeCompleto.setText("");
+		this.edtCpf.setText("");
+		this.edtRg.setText("");
+		this.edtFormacao.setText("");
+		this.edtLogin.setText("");
+		this.edtSenha.setText("");
+		this.facilitadorSalvo = null;
 	}
 }

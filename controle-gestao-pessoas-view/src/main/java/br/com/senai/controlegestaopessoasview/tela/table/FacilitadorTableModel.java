@@ -59,7 +59,7 @@ public class FacilitadorTableModel extends AbstractTableModel {
 		if (columnIndex == 0) {
 			return this.facilitadores.get(rowIndex).getId();
 		}else if (columnIndex == 1) {			
-			return this.facilitadores.get(rowIndex).getNomeCompleto();
+			return this.facilitadores.get(rowIndex).getUsuario().getNomeCompleto();
 		}
 		throw new IllegalArgumentException("Índice inválido");
 	}

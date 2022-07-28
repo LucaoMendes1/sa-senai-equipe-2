@@ -20,4 +20,9 @@ public class UsuarioService {
 		return repository.buscarPor(usuario.getLogin(), usuario.getSenha());
 	}
 	
+	public Usuario buscarPor(@NotNull(message = "O login não pode estar nulo") String login,
+				@NotNull(message = "A senha não pode estar nula") String senha) {
+		return repository.buscarPor(login, senha);
+	};
+	
 }

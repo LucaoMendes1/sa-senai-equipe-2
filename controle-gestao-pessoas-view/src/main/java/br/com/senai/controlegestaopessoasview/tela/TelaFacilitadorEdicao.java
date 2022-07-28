@@ -145,7 +145,7 @@ public class TelaFacilitadorEdicao extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	public void carregarFacilitador(Facilitador facilitador) {
-		edtNomeCompleto.setText(facilitador.getNomeCompleto());
+		edtNomeCompleto.setText(facilitador.getUsuario().getNomeCompleto());
 		this.edtNomeCompleto.setVisible(true);
 		
 		edtCpf.setText(facilitador.getCpf());
@@ -154,7 +154,7 @@ public class TelaFacilitadorEdicao extends JFrame {
 		edtRg.setText(facilitador.getRg());
 		this.edtRg.setVisible(true);
 		
-		edtLogin.setText(facilitador.getLogin());
+		edtLogin.setText(facilitador.getUsuario().getLogin());
 		this.edtLogin.setVisible(true);
 
 		edtFormacao.setText(facilitador.getFormacao());
@@ -164,11 +164,11 @@ public class TelaFacilitadorEdicao extends JFrame {
 	
 	public void montarTela(Facilitador facilitadorMontagem) {
 		
-		edtNomeCompleto.setText(facilitadorMontagem.getNomeCompleto());
+		edtNomeCompleto.setText(facilitadorMontagem.getUsuario().getNomeCompleto());
 		edtCpf.setText(facilitadorMontagem.getCpf());
 		edtFormacao.setText(facilitadorMontagem.getFormacao());
-		edtLogin.setText(facilitadorMontagem.getLogin());
-		edtSenha.setText(facilitadorMontagem.getSenha());
+		edtLogin.setText(facilitadorMontagem.getUsuario().getLogin());
+		edtSenha.setText(facilitadorMontagem.getUsuario().getSenha());
 		edtRg.setText(facilitadorMontagem.getRg());
 		
 		
