@@ -162,6 +162,19 @@ public class TelaFacilitadorEdicao extends JFrame {
 		
 	}
 	
+	public void montarTela(Facilitador facilitadorMontagem) {
+		
+		edtNomeCompleto.setText(facilitadorMontagem.getNomeCompleto());
+		edtCpf.setText(facilitadorMontagem.getCpf());
+		edtFormacao.setText(facilitadorMontagem.getFormacao());
+		edtLogin.setText(facilitadorMontagem.getLogin());
+		edtSenha.setText(facilitadorMontagem.getSenha());
+		edtRg.setText(facilitadorMontagem.getRg());
+		
+		
+	}
+	
+	
 	
 	
 	

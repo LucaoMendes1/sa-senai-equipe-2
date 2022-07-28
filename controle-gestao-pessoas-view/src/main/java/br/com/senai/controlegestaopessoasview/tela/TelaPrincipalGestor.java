@@ -78,7 +78,7 @@ public class TelaPrincipalGestor extends JFrame {
 		txtUserStatus.setText("Usuário Logado");
 		txtUserStatus.setColumns(10);
 		
-		txtNomeUsuario = new JTextField();
+		txtNomeUsuario =  new JTextField();
 		txtNomeUsuario.setEditable(false);
 		txtNomeUsuario.setColumns(10);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

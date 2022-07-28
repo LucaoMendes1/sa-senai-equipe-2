@@ -59,7 +59,7 @@ public class FacilitadorClient {
 	}
 	
 	
-	public Facilitador buscarPeloId(Usuario usuario) {
+	public Facilitador buscarFacilitador(Usuario usuario) {
 
 		RestTemplate httpClient = builder.build();
 		
