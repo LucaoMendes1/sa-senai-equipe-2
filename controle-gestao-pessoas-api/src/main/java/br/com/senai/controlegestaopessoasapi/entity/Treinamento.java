@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -28,12 +29,12 @@ public class Treinamento {
 	private Integer id;
 	
 	@Column(name="titulo")
-	@Size(max = 100, min = 2, message = "O login deve ter pelo menos 2 e no máximo 100 caracteres")
+	@Size(max = 100, min = 2, message = "O título deve ter pelo menos 2 e no máximo 100 caracteres")
 	@NotEmpty(message = "O título é obrigatório")
 	private String titulo;
 	
 	@Column(name="descricao_longa")
-	@Size(max = 1500, min = 10, message = "O login deve ter pelo menos 10 e no máximo 1500 caracteres")
+	@Size(max = 1500, min = 10, message = "A descrição deve ter pelo menos 10 e no máximo 1500 caracteres")
 	private String descricaoLonga;
 	
 	@Column(name="dt_localizacao")

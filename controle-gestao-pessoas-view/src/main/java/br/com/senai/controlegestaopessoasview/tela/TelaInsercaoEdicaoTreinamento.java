@@ -41,6 +41,7 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	private JTextField tFTitulo;
 	private JTextField tFDataDeRealizacao;
 	
+	
 	@Autowired
 	private TreinamentoClient treinamentoClient;
 	
@@ -84,6 +85,7 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		JButton btnNSalvar = new JButton("Salvar");
 		btnNSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.err.println("oioioioioioioioioioioi");
 				Treinamento novoTreinamento = new Treinamento();
 				novoTreinamento.setDescricaoLonga(tADescricaoLonga.getText());
 				novoTreinamento.setFacilitador((Facilitador)comboBoxFacilitador.getSelectedItem());
@@ -92,7 +94,6 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 				LocalDate localDate = LocalDate.parse(date, formatter);
 				novoTreinamento.setDataLocalizacao(localDate);
 				novoTreinamento.setTitulo(tFTitulo.getText());
-				System.err.println("oioioioioioioioioioioi");
 				treinamentoClient.inserir(novoTreinamento);
 			}
 		});
