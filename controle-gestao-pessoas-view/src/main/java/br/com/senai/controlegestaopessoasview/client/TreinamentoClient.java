@@ -31,7 +31,6 @@ public class TreinamentoClient {
 	
 	public Treinamento inserir(
 			Treinamento novoTreinamento) {
-		System.err.println("estou chegando aqui ==============================>");
 		RestTemplate httpClient = builder.build();
 		
 		URI uri = httpClient.postForLocation(

@@ -36,9 +36,6 @@ public class TreinamentoController {
 
 	@PostMapping
 	public ResponseEntity<?> inserir(@RequestBody Treinamento novoTreinamento) {
-		System.err.println(novoTreinamento);
-		System.err.println("opa ================");
-
 		Treinamento treinamentoSalvo = service.inserir(novoTreinamento);
 		return ResponseEntity.created(URI.create("/treinamentos/id/" + treinamentoSalvo.getId())).build();
 	}
