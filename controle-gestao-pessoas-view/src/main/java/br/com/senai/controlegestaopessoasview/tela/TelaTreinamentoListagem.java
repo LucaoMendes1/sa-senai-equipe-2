@@ -3,6 +3,7 @@ package br.com.senai.controlegestaopessoasview.tela;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,20 +15,39 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableColumnModel;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
+import br.com.senai.controlegestaopessoasview.dto.Treinamento;
+import br.com.senai.controlegestaopessoasview.tela.table.TreinamentoTableModel;
 
 @Component
 public class TelaTreinamentoListagem extends JFrame {
+	
+	@Autowired
+	private TreinamentoClient treinamentoClient;
 
+	@Autowired
+	private TelaInsercaoEdicaoTreinamento telaInsercaoEdicaoTreinamento; 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtFiltro;
 	private JTable table;
 
-	/**
-	 * Create the frame.
-	 */
+	
+	private void atualizar(JTable table) {
+		List<Treinamento> treinamentos = treinamentoClient.listarPor(txtFiltro.getText());
+		TreinamentoTableModel model = new TreinamentoTableModel(treinamentos);
+		table.setModel(model);
+		TableColumnModel cm = table.getColumnModel();
+		cm.getColumn(0).setPreferredWidth(50);
+		cm.getColumn(1).setPreferredWidth(352);
+		table.updateUI();
+	}
+	
 	public TelaTreinamentoListagem() {
 		setTitle("Treinamento (LISTAGEM) - SA System 1.2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +59,8 @@ public class TelaTreinamentoListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				telaInsercaoEdicaoTreinamento.setVisible(true);
+				contentPane.setVisible(false);
 			}
 		});
 		
@@ -50,6 +72,7 @@ public class TelaTreinamentoListagem extends JFrame {
 		JButton btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				atualizar(table);
 			}
 		});
 		

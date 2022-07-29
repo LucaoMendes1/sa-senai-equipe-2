@@ -39,14 +39,11 @@ public class FacilitadorService {
 			Facilitador novoFacilitador) {
 		Preconditions.checkArgument(novoFacilitador.isNovo(),
 				"O facilitador já foi salvo");
-		Facilitador facilitadorSalvo = repository.save(novoFacilitador);
-		Usuario novoUsuario = new Usuario();
-		novoUsuario.setLogin(novoFacilitador.getLogin());
-		novoUsuario.setNomeCompleto(novoFacilitador.getNomeCompleto());
-		novoUsuario.setSenha(novoFacilitador.getSenha());
-		novoUsuario.setTipo(Tipo.FACILITADOR);
-		usuarioRepository.save(novoUsuario);
 		
+		Usuario usuarioSalvo = usuarioRepository.save(novoFacilitador.getUsuario());
+		novoFacilitador.setUsuario(usuarioSalvo);
+		Facilitador facilitadorSalvo = repository.save(novoFacilitador);
+		facilitadorSalvo.setUsuario(usuarioSalvo);
 		return facilitadorSalvo;
 	}
 	
@@ -56,6 +53,8 @@ public class FacilitadorService {
 			Facilitador facilitadorSalvo) {
 		Preconditions.checkArgument(!facilitadorSalvo.isNovo(), 
 				"O facilitador ainda não foi inserido");
+		
+		facilitadorSalvo.setUsuario(usuarioRepository.save(facilitadorSalvo.getUsuario()));
 		Facilitador facilitadorAtualizado = repository.save(facilitadorSalvo);
 		return facilitadorAtualizado;
 	}

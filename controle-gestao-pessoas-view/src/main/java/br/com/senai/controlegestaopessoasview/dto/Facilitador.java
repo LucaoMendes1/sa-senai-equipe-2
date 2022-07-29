@@ -10,20 +10,16 @@ public class Facilitador {
 	@EqualsAndHashCode.Include
 	private Integer id;
 
-	private String nomeCompleto;
-
 	private String cpf;
 
 	private String rg;
 
 	private String formacao;
 
-	private String login;
-
-	private String senha;
-
+	private Usuario usuario;
+	
 	@Override
 	public String toString() {
-		return id + " - " + nomeCompleto;
+		return id + " - " + usuario.getNomeCompleto();
 	}
 }

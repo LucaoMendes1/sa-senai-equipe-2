@@ -5,9 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -22,6 +24,7 @@ public class Facilitador {
 	@Column(name="id")
 	private Integer id;
 	
+<<<<<<< HEAD
 
 	@Column(name="nome_completo")
 	@Size(max = 50, min = 2, message = "O login deve ter pelo menos 2 e no máximo 50 caracteres")
@@ -29,21 +32,24 @@ public class Facilitador {
 	private String nomeCompleto;
 	
 	
+=======
+>>>>>>> c08d3e2fd8c82b45b7e36ea7c95141deb52fca83
 	@Column(name="cpf")
-	@Size(max = 14, min = 14, message = "O login deve ter pelo menos 14 e no máximo 14 caracteres")
+	@Size(max = 14, min = 14, message = "O cpf deve ter pelo menos 14 e no máximo 14 caracteres")
 	@NotEmpty(message = "O cpf é obrigatório")
 	private String cpf;
 	
 	@Column(name="rg")
-	@Size(max = 10, min = 10, message = "O login deve ter pelo menos 10 e no máximo 10 caracteres")
-	@NotEmpty(message = "O cpf é obrigatório")
+	@Size(max = 10, min = 10, message = "O cpf deve ter pelo menos 10 e no máximo 10 caracteres")
+	@NotEmpty(message = "O rg é obrigatório")
 	private String rg;
 	
 	@Column(name="formacao")
-	@Size(max = 1000, min = 2, message = "O login deve ter pelo menos 2 e no máximo 1000 caracteres")
-	@NotEmpty(message = "O cpf é obrigatório")
+	@Size(max = 1000, min = 2, message = "A formação deve ter pelo menos 2 e no máximo 1000 caracteres")
+	@NotEmpty(message = "A formação é obrigatória")
 	private String formacao;
 	
+<<<<<<< HEAD
 	
 	@Column(name="login")
 	@Size(max = 20, min = 2, message = "O login deve ter pelo menos 2 e no máximo 20 caracteres")
@@ -54,6 +60,11 @@ public class Facilitador {
 	@Size(max = 10, min = 2, message = "O login deve ter pelo menos 2 e no máximo 10 caracteres")
 	@NotEmpty(message = "A senha é obrigatória")
 	private String senha;
+=======
+	@NotNull(message = "O usuário não pode estar vazio")
+	@OneToOne
+	private Usuario usuario;
+>>>>>>> c08d3e2fd8c82b45b7e36ea7c95141deb52fca83
 	
 	@Transient
 	public boolean isNovo() {

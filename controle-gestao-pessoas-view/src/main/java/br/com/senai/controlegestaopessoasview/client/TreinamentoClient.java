@@ -62,7 +62,7 @@ public class TreinamentoClient {
 		RestTemplate httpClient = builder.build();
 		
 		List<LinkedHashMap<String, Object>> response = httpClient.getForObject(
-				urlEndpoint + resource + "/descricao/" + descricaoLonga, List.class);
+				urlEndpoint + resource + "/titulo/" + descricaoLonga, List.class);
 		
 		List<Treinamento> treinamentos = new ArrayList<Treinamento>();
 		

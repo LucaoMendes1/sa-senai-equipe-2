@@ -4,25 +4,25 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 
+import br.com.senai.controlegestaopessoasview.dto.Treinamento;
 
-public class FacilitadorTableModel extends AbstractTableModel {
-	
+public class TreinamentoTableModel extends AbstractTableModel{
+
 	private static final long serialVersionUID = 1L;
 	
 	private final int QTDE_COLUNAS = 2;
 	
-	private List<Facilitador> facilitadores;
+	private List<Treinamento> treinamentos;
 	
-	public FacilitadorTableModel(
-			List<Facilitador> facilitadores) {
-		this.facilitadores = facilitadores;
+	public TreinamentoTableModel(
+			List<Treinamento> treinamentos) {
+		this.treinamentos = treinamentos;
 	}
 
 	@Override
 	public int getRowCount() {
-		return facilitadores.size();
+		return treinamentos.size();
 	}
 
 	@Override
@@ -36,32 +36,33 @@ public class FacilitadorTableModel extends AbstractTableModel {
 		if (column == 0) {
 			return "ID";
 		}else if (column == 1) {		
-			return "Nome Completo";
+			return "Descrição";
 		}
 		
 		throw new IllegalArgumentException("Indice inválido");
 	}
 	
-	public Facilitador getPor(int rowIndex) {
-		return facilitadores.get(rowIndex);
+	public Treinamento getPor(int rowIndex) {
+		return treinamentos.get(rowIndex);
 	}
 	
 	public void removePor(int rowIndex) {
-		this.facilitadores.remove(rowIndex);
+		this.treinamentos.remove(rowIndex);
 	}
 	
-	public void remover(Facilitador facilitadores) {
-		this.facilitadores.remove(facilitadores);
+	public void remover(Treinamento treinamentos) {
+		this.treinamentos.remove(treinamentos);
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (columnIndex == 0) {
-			return this.facilitadores.get(rowIndex).getId();
+			return this.treinamentos.get(rowIndex).getId();
 		}else if (columnIndex == 1) {			
-			return this.facilitadores.get(rowIndex).getUsuario().getNomeCompleto();
+			return this.treinamentos.get(rowIndex).getDescricaoLonga();
 		}
 		throw new IllegalArgumentException("Índice inválido");
 	}
 	
+
 }

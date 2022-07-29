@@ -125,7 +125,7 @@ public class TelaPrincipalFacilitador extends JFrame {
 	}
 	
 	public void carregarTela(Facilitador facilitador) {
-		txtNomeUsuario.setText(facilitador.getNomeCompleto());
+		txtNomeUsuario.setText(facilitador.getUsuario().getNomeCompleto());
 		this.setVisible(true);
 		
 		this.facilitador = facilitador;

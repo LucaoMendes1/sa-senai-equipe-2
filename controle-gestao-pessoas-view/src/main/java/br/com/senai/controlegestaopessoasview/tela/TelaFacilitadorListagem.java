@@ -93,11 +93,10 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				telaFacilitadorInsercaoEdicao.limparFormulario();
 				telaFacilitadorInsercaoEdicao.setVisible(true);
 				setVisible(false);
 			}
-
 		});
 
 		JTable table = new JTable();
@@ -123,10 +122,7 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				
-				
-				
+				telaFacilitadorInsercaoEdicao.colocarEmEdicao(getFacilitadorSelecionadaNa(table));
 			}
 		});
 

@@ -15,7 +15,7 @@ public interface FacilitadorRepository extends JpaRepository<Facilitador, Intege
 	@Query(value = 
 			"SELECT f " 
 					+ "FROM Facilitador f " 
-					+ "WHERE Upper(f.nomeCompleto) LIKE Upper(:nome)")
+					+ "WHERE Upper(f.usuario.nomeCompleto) LIKE Upper(:nome)")
 	List<Facilitador> listarPor(@Param("nome") String nome);
 
 	@Query(value = 
@@ -29,7 +29,7 @@ public interface FacilitadorRepository extends JpaRepository<Facilitador, Intege
 	@Query(value = 
 			"SELECT f "
 			+ "FROM Facilitador f "
-			+ "WHERE f.login = :login")
+			+ "WHERE f.usuario.login = :login")
 	Facilitador buscarPor(@Param("login") String login);
 	
 }
