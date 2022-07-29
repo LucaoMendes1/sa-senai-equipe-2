@@ -20,11 +20,8 @@ import javax.swing.table.TableColumnModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
-import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 import br.com.senai.controlegestaopessoasview.dto.Treinamento;
-import br.com.senai.controlegestaopessoasview.tela.table.FacilitadorTableModel;
 import br.com.senai.controlegestaopessoasview.tela.table.TreinamentoTableModel;
 
 @Component
@@ -33,6 +30,8 @@ public class TelaTreinamentoListagem extends JFrame {
 	@Autowired
 	private TreinamentoClient treinamentoClient;
 
+	@Autowired
+	private TelaInsercaoEdicaoTreinamento telaInsercaoEdicaoTreinamento; 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtFiltro;
@@ -60,6 +59,8 @@ public class TelaTreinamentoListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				telaInsercaoEdicaoTreinamento.setVisible(true);
+				contentPane.setVisible(false);
 			}
 		});
 		
