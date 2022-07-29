@@ -22,10 +22,12 @@ public class Facilitador {
 	@Column(name="id")
 	private Integer id;
 	
+
 	@Column(name="nome_completo")
 	@Size(max = 50, min = 2, message = "O login deve ter pelo menos 2 e no máximo 50 caracteres")
 	@NotEmpty(message = "O nome completo é obrigatório")
 	private String nomeCompleto;
+	
 	
 	@Column(name="cpf")
 	@Size(max = 14, min = 14, message = "O login deve ter pelo menos 14 e no máximo 14 caracteres")
@@ -41,6 +43,7 @@ public class Facilitador {
 	@Size(max = 1000, min = 2, message = "O login deve ter pelo menos 2 e no máximo 1000 caracteres")
 	@NotEmpty(message = "O cpf é obrigatório")
 	private String formacao;
+	
 	
 	@Column(name="login")
 	@Size(max = 20, min = 2, message = "O login deve ter pelo menos 2 e no máximo 20 caracteres")
