@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-
+import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 import br.com.senai.controlegestaopessoasview.dto.Treinamento;
 
 public class TreinamentoTableModel extends AbstractTableModel{
@@ -46,9 +46,6 @@ public class TreinamentoTableModel extends AbstractTableModel{
 		return treinamentos.get(rowIndex);
 	}
 	
-	public void removePor(int rowIndex) {
-		this.treinamentos.remove(rowIndex);
-	}
 	
 	public void remover(Treinamento treinamentos) {
 		this.treinamentos.remove(treinamentos);

@@ -10,6 +10,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -21,7 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
+import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 import br.com.senai.controlegestaopessoasview.dto.Treinamento;
+import br.com.senai.controlegestaopessoasview.tela.table.FacilitadorTableModel;
 import br.com.senai.controlegestaopessoasview.tela.table.TreinamentoTableModel;
 
 @Component
@@ -30,8 +33,10 @@ public class TelaTreinamentoListagem extends JFrame {
 	@Autowired
 	private TreinamentoClient treinamentoClient;
 
+
 	@Autowired
 	private TelaInsercaoEdicaoTreinamento telaInsercaoEdicaoTreinamento; 
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtFiltro;
@@ -46,6 +51,35 @@ public class TelaTreinamentoListagem extends JFrame {
 		cm.getColumn(0).setPreferredWidth(50);
 		cm.getColumn(1).setPreferredWidth(352);
 		table.updateUI();
+	}
+	private Treinamento getTreinamentoSelecionadoNa(JTable table) {
+		int linhaSelecionada = table.getSelectedRow();
+		if (linhaSelecionada < 0) {
+			throw new IllegalArgumentException("Nenhuma linha foi selecionada");
+		}
+		TreinamentoTableModel model = (TreinamentoTableModel) table.getModel();
+		Treinamento itemSelecionado = model.getPor(linhaSelecionada);
+		return itemSelecionado;
+	}
+
+	private void removerRegistroDa(JTable table) {
+		try {
+
+			Treinamento treinamentoSelecionado = getTreinamentoSelecionadoNa(table);
+
+			int opcaoSelecionada = JOptionPane.showConfirmDialog(contentPane, "Deseja remover?", "Remoção",
+					JOptionPane.YES_NO_OPTION);
+
+			if (opcaoSelecionada == JOptionPane.YES_OPTION) {
+				this.treinamentoClient.excluir(treinamentoSelecionado);
+				((TreinamentoTableModel) table.getModel()).remover(treinamentoSelecionado);
+				table.updateUI();
+				JOptionPane.showMessageDialog(contentPane, "Treinamento removido com sucesso");
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(contentPane, e.getMessage());
+		}
 	}
 	
 	public TelaTreinamentoListagem() {
@@ -79,6 +113,13 @@ public class TelaTreinamentoListagem extends JFrame {
 		JButton btnRemover = new JButton("Remover");
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				telaInsercaoEdicaoTreinamento.colocarEmEdicao(null);
+				
+			}
+		});
 		
 		JLabel lblFiltro = new JLabel("Filtro");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

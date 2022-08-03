@@ -33,27 +33,37 @@ import br.com.senai.controlegestaopessoasview.dto.Treinamento;
 @Component
 public class TelaInsercaoEdicaoTreinamento extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tFTitulo;
 	private JTextField tFDataDeRealizacao;
+	private JTextField tADescricaoLonga;
 	
 	
 	@Autowired
 	private TreinamentoClient treinamentoClient;
 	
+	private Treinamento treinamentoSalvo;
+	
 	@Autowired
 	private FacilitadorClient facilitadorClient;
+	
+
 	
 	private JComboBox<Facilitador> comboBoxFacilitador;
 
 
-	/**
-	 * Create the frame.
-	 */
+
+	public void colocarEmEdicao(
+			Treinamento treinamentoSalvo) {
+		this.tFTitulo.setText(treinamentoSalvo.getTitulo());
+		this.tFDataDeRealizacao.setText(treinamentoSalvo.getDataLocalizacao());
+		this.tADescricaoLonga.setText(treinamentoSalvo.getDescricaoLonga());
+		this.treinamentoSalvo = treinamentoSalvo;
+		setVisible(true);
+	}
+	
 	public TelaInsercaoEdicaoTreinamento() {
 		setTitle("Treinamento (INSERÇÃO/EDIÇÃO) - SA System 1.2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

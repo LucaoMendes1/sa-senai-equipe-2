@@ -24,16 +24,12 @@ public class Facilitador {
 	@Column(name="id")
 	private Integer id;
 	
-<<<<<<< HEAD
 
 	@Column(name="nome_completo")
 	@Size(max = 50, min = 2, message = "O login deve ter pelo menos 2 e no máximo 50 caracteres")
 	@NotEmpty(message = "O nome completo é obrigatório")
 	private String nomeCompleto;
 	
-	
-=======
->>>>>>> c08d3e2fd8c82b45b7e36ea7c95141deb52fca83
 	@Column(name="cpf")
 	@Size(max = 14, min = 14, message = "O cpf deve ter pelo menos 14 e no máximo 14 caracteres")
 	@NotEmpty(message = "O cpf é obrigatório")
@@ -49,7 +45,7 @@ public class Facilitador {
 	@NotEmpty(message = "A formação é obrigatória")
 	private String formacao;
 	
-<<<<<<< HEAD
+
 	
 	@Column(name="login")
 	@Size(max = 20, min = 2, message = "O login deve ter pelo menos 2 e no máximo 20 caracteres")
@@ -60,11 +56,11 @@ public class Facilitador {
 	@Size(max = 10, min = 2, message = "O login deve ter pelo menos 2 e no máximo 10 caracteres")
 	@NotEmpty(message = "A senha é obrigatória")
 	private String senha;
-=======
+
 	@NotNull(message = "O usuário não pode estar vazio")
 	@OneToOne
 	private Usuario usuario;
->>>>>>> c08d3e2fd8c82b45b7e36ea7c95141deb52fca83
+
 	
 	@Transient
 	public boolean isNovo() {
