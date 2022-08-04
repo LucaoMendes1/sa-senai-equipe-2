@@ -111,13 +111,16 @@ public class TelaTreinamentoListagem extends JFrame {
 		});
 		
 		JButton btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				treinamentoClient.excluir(getTreinamentoSelecionadoNa(table));
+			}
+		});
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				telaInsercaoEdicaoTreinamento.colocarEmEdicao(null);
-				
+				telaInsercaoEdicaoTreinamento.colocarEmEdicao(getTreinamentoSelecionadoNa(table));
 			}
 		});
 		

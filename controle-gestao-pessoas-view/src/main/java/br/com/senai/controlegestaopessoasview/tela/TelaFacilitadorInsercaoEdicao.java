@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+import br.com.senai.controlegestaopessoasview.dto.Tipo;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 
@@ -102,7 +103,9 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 				novoFacilitador.getUsuario().setLogin(edtLogin.getText());
 				novoFacilitador.getUsuario().setSenha(edtSenha.getText());
 				novoFacilitador.getUsuario().setNomeCompleto(edtNomeCompleto.getText());
+				novoFacilitador.getUsuario().setTipo(Tipo.FACILITADOR);
 				novoFacilitador.setRg(edtRg.getText());
+				System.out.println(novoFacilitador);
 				if (facilitadorSalvo != null) {
 					novoFacilitador.setId(facilitadorSalvo.getId());
 					novoFacilitador.getUsuario().setId(facilitadorSalvo.getUsuario().getId());

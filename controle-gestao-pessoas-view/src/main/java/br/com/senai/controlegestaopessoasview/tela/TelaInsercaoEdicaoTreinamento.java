@@ -38,7 +38,7 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	private JPanel contentPane;
 	private JTextField tFTitulo;
 	private JTextField tFDataDeRealizacao;
-	private JTextField tADescricaoLonga;
+	private JTextArea tADescricaoLonga;
 	
 	
 	@Autowired
@@ -58,7 +58,7 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	public void colocarEmEdicao(
 			Treinamento treinamentoSalvo) {
 		this.tFTitulo.setText(treinamentoSalvo.getTitulo());
-		this.tFDataDeRealizacao.setText(treinamentoSalvo.getDataLocalizacao());
+		this.tFDataDeRealizacao.setText(treinamentoSalvo.getDataLocalizacao().toString());
 		this.tADescricaoLonga.setText(treinamentoSalvo.getDescricaoLonga());
 		this.treinamentoSalvo = treinamentoSalvo;
 		setVisible(true);
@@ -78,6 +78,9 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		
 		tFTitulo = new JTextField();
 		tFTitulo.setColumns(10);
+		
+		tADescricaoLonga = new JTextArea();
+		tADescricaoLonga.setColumns(10);
 		
 		JLabel lblDataDeRealizacao = new JLabel("Data de Realização");
 		
