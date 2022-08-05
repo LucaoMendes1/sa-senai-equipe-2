@@ -3,10 +3,12 @@ package br.com.senai.controlegestaopessoasview.tela;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.text.ParseException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,10 +17,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
@@ -32,12 +38,14 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField edtNomeCompleto;
-	private JTextField edtCpf;
-	private JTextField edtRg;
+	private JFormattedTextField edtCpf;
+	private JFormattedTextField edtRg;
 	private JTextField edtLogin;
-	
 	@Autowired
 	private FacilitadorClient client;
+	
+	private MaskFormatter maskCpf;
+	private MaskFormatter maskRg;
 	
 	private Facilitador facilitadorSalvo;
 	
@@ -73,11 +81,17 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 		
 		edtNomeCompleto = new JTextField();
 		edtNomeCompleto.setColumns(10);
+		try {
+			maskCpf = new MaskFormatter("###.###.###-##");
+			maskRg = new MaskFormatter("##.###.###");
+
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		
-		edtCpf = new JTextField();
+		edtCpf = new JFormattedTextField(maskCpf);
 		edtCpf.setColumns(10);
-		
-		edtRg = new JTextField();
+		edtRg = new JFormattedTextField(maskRg);
 		edtRg.setColumns(10);
 		
 		JLabel lblNomeCompleto = new JLabel("Nome Completo");
@@ -95,6 +109,7 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			try {
 				Facilitador novoFacilitador = new Facilitador();
 				Usuario novoUsuario = new Usuario();
 				novoFacilitador.setUsuario(novoUsuario);
@@ -105,7 +120,6 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 				novoFacilitador.getUsuario().setNomeCompleto(edtNomeCompleto.getText());
 				novoFacilitador.getUsuario().setTipo(Tipo.FACILITADOR);
 				novoFacilitador.setRg(edtRg.getText());
-				System.out.println(novoFacilitador);
 				if (facilitadorSalvo != null) {
 					novoFacilitador.setId(facilitadorSalvo.getId());
 					novoFacilitador.getUsuario().setId(facilitadorSalvo.getUsuario().getId());
@@ -115,6 +129,14 @@ public class TelaFacilitadorInsercaoEdicao extends JFrame implements Serializabl
 					client.inserir(novoFacilitador);
 					JOptionPane.showMessageDialog(contentPane, "Novo facilitador inserido com sucesso!");
 				}
+				}catch (HttpClientErrorException hcee) {
+					JSONObject erroClient = new JSONObject(hcee.getResponseBodyAsString());
+					JSONArray erros = erroClient.getJSONArray("erros");
+					for( Object erro : erros) {
+						JSONObject erroJson = (JSONObject) erro;
+						JOptionPane.showMessageDialog(contentPane, erroJson.get("mensagem"));
+					}
+			}
 			}
 		});
 		

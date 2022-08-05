@@ -108,21 +108,34 @@ public class TelaFacilitadorListagem extends JFrame {
 		JButton btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizar(table);
+				if(txtFiltro.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane, "O filtro não pode estar vazio");
+				}else {
+					atualizar(table);
+				}
 			}
 		});
 
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				removerRegistroDa(table);
+				try {
+					removerRegistroDa(table);
+				} catch (IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(contentPane, iae.getMessage());
+				}
 			}
 		});
 
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				telaFacilitadorInsercaoEdicao.colocarEmEdicao(getFacilitadorSelecionadaNa(table));
+				try {
+					telaFacilitadorInsercaoEdicao.colocarEmEdicao(getFacilitadorSelecionadaNa(table));
+					
+				} catch (IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(contentPane, iae.getMessage());
+				}
 			}
 		});
 

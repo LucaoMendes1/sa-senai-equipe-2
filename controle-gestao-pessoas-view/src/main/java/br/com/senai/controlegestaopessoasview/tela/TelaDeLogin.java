@@ -80,27 +80,17 @@ public class TelaDeLogin extends JFrame implements Serializable{
 				Usuario usuarioLogado = client.logar(usuario);
 				if (usuarioLogado != null) {
 					if (usuarioLogado.getTipo() == Tipo.GESTOR) {
+						dispose();
 						tpGestor.carregarTela(usuarioLogado);
 					}else{
-						
 						Facilitador facilitadorEnviado =  enviarFacilitador(usuarioLogado);
-						
 						tpFacilitador.setVisible(true);	
-						
-						
 					    tpFacilitador.carregarTela(facilitadorEnviado);
-					    
-					    
-					    
 					    tpFacilitador.armazenarFacilitador(facilitadorEnviado);
-					    
-						
-						
 					}
 				}
 			}
 		});
-
 		btnLogar.setBounds(81, 193, 110, 41);
 		contentPane.add(btnLogar);
 		
@@ -121,15 +111,7 @@ public class TelaDeLogin extends JFrame implements Serializable{
 	
 	public Facilitador enviarFacilitador(Usuario usuarioBusca) {
 		Facilitador facilitadorEncontrado = new Facilitador();
-		
 		facilitadorEncontrado =  clienteFacilitador.buscarFacilitador(usuarioBusca);
-		
 		return facilitadorEncontrado;
-		
 	}
-	
-	
-	
-	
-	
 }

@@ -2,6 +2,7 @@ package br.com.senai.controlegestaopessoasview.tela;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,6 +14,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,15 +22,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
@@ -42,12 +45,17 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tFTitulo;
-	private JTextField tFDataDeRealizacao;
+	private JFormattedTextField tFDataDeRealizacao;
 	private JTextArea tADescricaoLonga;
+	private MaskFormatter maskData;
 	
 	
 	@Autowired
 	private TreinamentoClient treinamentoClient;
+	
+	@Lazy
+	@Autowired
+	private TelaTreinamentoListagem listagem;
 	
 	private Treinamento treinamentoSalvo;
 	
@@ -76,8 +84,21 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				listagem.abrirTela();
+			}
+		});
 		
 		JLabel lblTitulo = new JLabel("Título");
+		
+		try {
+			maskData = new MaskFormatter("##/##/####");
+
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		
 		tFTitulo = new JTextField();
 		tFTitulo.setColumns(10);
@@ -87,7 +108,7 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		
 		JLabel lblDataDeRealizacao = new JLabel("Data de Realização");
 		
-		tFDataDeRealizacao = new JTextField();
+		tFDataDeRealizacao = new JFormattedTextField(maskData);
 		tFDataDeRealizacao.setColumns(10);
 		
 		JLabel lblFacilitador = new JLabel("Facilitador");
@@ -116,7 +137,6 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 					JOptionPane.showMessageDialog(contentPane, "Formato inválido para a data");
 				}catch (HttpClientErrorException hcee) {
 					JSONObject erroClient = new JSONObject(hcee.getResponseBodyAsString());
-					System.out.println(erroClient.get("erros"));
 					JSONArray erros = erroClient.getJSONArray("erros");
 					for( Object erro : erros) {
 						JSONObject erroJson = (JSONObject) erro;

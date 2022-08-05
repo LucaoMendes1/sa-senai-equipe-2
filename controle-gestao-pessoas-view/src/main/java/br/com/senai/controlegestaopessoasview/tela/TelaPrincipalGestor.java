@@ -51,6 +51,7 @@ public class TelaPrincipalGestor extends JFrame {
 		JButton btnFacilitadores = new JButton("Facilitadores");
 		btnFacilitadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				tpFacilitadorListagem.setVisible(true);
 			}
 		});
@@ -58,7 +59,7 @@ public class TelaPrincipalGestor extends JFrame {
 		JButton btnTreinamentos = new JButton("Treinamentos");
 		btnTreinamentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				telaTreinamentoListagem.setVisible(true);
 			}
 		});

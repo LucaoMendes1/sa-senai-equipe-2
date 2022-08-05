@@ -93,8 +93,8 @@ public class TelaTreinamentoListagem extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				telaInsercaoEdicaoTreinamento.setVisible(true);
-				contentPane.setVisible(false);
 			}
 		});
 		
@@ -184,5 +184,9 @@ public class TelaTreinamentoListagem extends JFrame {
 					.addContainerGap(24, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	public void abrirTela() {
+		this.setVisible(true);
 	}
 }
