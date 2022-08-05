@@ -28,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
@@ -51,8 +53,6 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 	
 	@Autowired
 	private FacilitadorClient facilitadorClient;
-	
-
 	
 	private JComboBox<Facilitador> comboBoxFacilitador;
 
@@ -111,17 +111,17 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 					novoTreinamento.setDataLocalizacao(localDate);
 					novoTreinamento.setTitulo(tFTitulo.getText());
 					treinamentoClient.inserir(novoTreinamento);
+					JOptionPane.showMessageDialog(contentPane, "Treinamento salvo com sucesso!!!");
 				} catch (DateTimeParseException dtpe) {
 					JOptionPane.showMessageDialog(contentPane, "Formato inválido para a data");
 				}catch (HttpClientErrorException hcee) {
 					JSONObject erroClient = new JSONObject(hcee.getResponseBodyAsString());
-					JSONArray erros = new JSONArray(erroClient.get("erros"));
 					System.out.println(erroClient.get("erros"));
-//					List<Object> listaDeErros = erros.toList();
-//					for(Object erro : listaDeErros) {
-//						JOptionPane.showMessageDialog(contentPane, erro);
-//					}
-					JOptionPane.showMessageDialog(contentPane, hcee.getMessage());
+					JSONArray erros = erroClient.getJSONArray("erros");
+					for( Object erro : erros) {
+						JSONObject erroJson = (JSONObject) erro;
+						JOptionPane.showMessageDialog(contentPane, erroJson.get("mensagem"));
+					}
 				}
 			}
 		});
