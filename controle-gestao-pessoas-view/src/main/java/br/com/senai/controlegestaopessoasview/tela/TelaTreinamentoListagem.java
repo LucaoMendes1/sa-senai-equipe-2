@@ -106,21 +106,33 @@ public class TelaTreinamentoListagem extends JFrame {
 		JButton btnListar = new JButton("Listar");
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizar(table);
+				if (txtFiltro.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(contentPane, "O filtro não pode estar vazio");
+				}else {
+					atualizar(table);
+				}
 			}
 		});
 		
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
 				treinamentoClient.excluir(getTreinamentoSelecionadoNa(table));
+				}catch (IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(contentPane, iae.getMessage());
+				}
 			}
 		});
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				telaInsercaoEdicaoTreinamento.colocarEmEdicao(getTreinamentoSelecionadoNa(table));
+				try {
+					telaInsercaoEdicaoTreinamento.colocarEmEdicao(getTreinamentoSelecionadoNa(table));
+				} catch (IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(contentPane, iae.getMessage());
+				}
 			}
 		});
 		

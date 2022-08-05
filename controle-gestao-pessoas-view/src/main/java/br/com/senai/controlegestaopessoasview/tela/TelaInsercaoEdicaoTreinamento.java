@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +15,18 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpClientErrorException;
 
 import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.client.TreinamentoClient;
@@ -98,16 +101,28 @@ public class TelaInsercaoEdicaoTreinamento extends JFrame {
 		JButton btnNSalvar = new JButton("Salvar");
 		btnNSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.err.println("oioioioioioioioioioioi");
-				Treinamento novoTreinamento = new Treinamento();
-				novoTreinamento.setDescricaoLonga(tADescricaoLonga.getText());
-				novoTreinamento.setFacilitador((Facilitador)comboBoxFacilitador.getSelectedItem());
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-				String date = tFDataDeRealizacao.getText();
-				LocalDate localDate = LocalDate.parse(date, formatter);
-				novoTreinamento.setDataLocalizacao(localDate);
-				novoTreinamento.setTitulo(tFTitulo.getText());
-				treinamentoClient.inserir(novoTreinamento);
+				try {
+					Treinamento novoTreinamento = new Treinamento();
+					novoTreinamento.setDescricaoLonga(tADescricaoLonga.getText());
+					novoTreinamento.setFacilitador((Facilitador)comboBoxFacilitador.getSelectedItem());
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+					String date = tFDataDeRealizacao.getText();
+					LocalDate localDate = LocalDate.parse(date, formatter);
+					novoTreinamento.setDataLocalizacao(localDate);
+					novoTreinamento.setTitulo(tFTitulo.getText());
+					treinamentoClient.inserir(novoTreinamento);
+				} catch (DateTimeParseException dtpe) {
+					JOptionPane.showMessageDialog(contentPane, "Formato inválido para a data");
+				}catch (HttpClientErrorException hcee) {
+					JSONObject erroClient = new JSONObject(hcee.getResponseBodyAsString());
+					JSONArray erros = new JSONArray(erroClient.get("erros"));
+					System.out.println(erroClient.get("erros"));
+//					List<Object> listaDeErros = erros.toList();
+//					for(Object erro : listaDeErros) {
+//						JOptionPane.showMessageDialog(contentPane, erro);
+//					}
+					JOptionPane.showMessageDialog(contentPane, hcee.getMessage());
+				}
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
