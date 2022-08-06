@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.senai.controlegestaopessoasapi.entity.Facilitador;
+import br.com.senai.controlegestaopessoasapi.entity.Usuario;
 
 @Repository
 public interface FacilitadorRepository extends JpaRepository<Facilitador, Integer> {
@@ -31,5 +32,7 @@ public interface FacilitadorRepository extends JpaRepository<Facilitador, Intege
 			+ "FROM Facilitador f "
 			+ "WHERE f.usuario.login = :login")
 	Facilitador buscarPor(@Param("login") String login);
+	
+	Facilitador getByUsuario(Usuario usuario);
 	
 }

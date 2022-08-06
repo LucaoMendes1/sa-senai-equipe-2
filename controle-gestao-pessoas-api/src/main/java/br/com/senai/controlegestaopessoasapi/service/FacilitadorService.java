@@ -97,4 +97,8 @@ public class FacilitadorService {
 		return repository.findAll();
 	}
 	
+	public Facilitador buscarPor(Usuario usuario) {
+		return repository.getByUsuario(usuario);
+	}
+	
 }

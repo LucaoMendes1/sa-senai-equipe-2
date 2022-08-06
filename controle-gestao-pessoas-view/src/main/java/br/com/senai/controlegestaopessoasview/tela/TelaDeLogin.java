@@ -7,7 +7,6 @@ import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -22,7 +21,6 @@ import br.com.senai.controlegestaopessoasview.client.UsuarioClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
 import br.com.senai.controlegestaopessoasview.dto.Tipo;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
-import ch.qos.logback.core.joran.conditional.IfAction;
 
 @Component
 public class TelaDeLogin extends JFrame implements Serializable{
@@ -83,10 +81,9 @@ public class TelaDeLogin extends JFrame implements Serializable{
 						dispose();
 						tpGestor.carregarTela(usuarioLogado);
 					}else{
-						Facilitador facilitadorEnviado =  enviarFacilitador(usuarioLogado);
 						tpFacilitador.setVisible(true);	
-					    tpFacilitador.carregarTela(facilitadorEnviado);
-					    tpFacilitador.armazenarFacilitador(facilitadorEnviado);
+					    tpFacilitador.carregarTela(enviarFacilitador(usuarioLogado));
+					    tpFacilitador.armazenarFacilitador(enviarFacilitador(usuarioLogado));
 					}
 				}
 			}
@@ -107,11 +104,7 @@ public class TelaDeLogin extends JFrame implements Serializable{
 		contentPane.add(psSenha);
 	}
 	
-	
-	
 	public Facilitador enviarFacilitador(Usuario usuarioBusca) {
-		Facilitador facilitadorEncontrado = new Facilitador();
-		facilitadorEncontrado =  clienteFacilitador.buscarFacilitador(usuarioBusca);
-		return facilitadorEncontrado;
+		return clienteFacilitador.buscarFacilitador(usuarioBusca);
 	}
 }

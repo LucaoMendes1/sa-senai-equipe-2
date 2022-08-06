@@ -60,12 +60,10 @@ public class FacilitadorClient {
 	
 	
 	public Facilitador buscarFacilitador(Usuario usuario) {
-
 		RestTemplate httpClient = builder.build();
 		
 	    Facilitador facilitadorLogado = httpClient.postForObject(
-	    		urlEndpoint + resource, usuario, Facilitador.class);
-	    
+	    		urlEndpoint + resource + "/buscarPorUsuario", usuario, Facilitador.class);
 	    return facilitadorLogado;
 		
 	}

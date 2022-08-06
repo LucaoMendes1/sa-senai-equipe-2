@@ -1,19 +1,29 @@
 package br.com.senai.controlegestaopessoasview.tela;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
+import br.com.senai.controlegestaopessoasview.client.FacilitadorClient;
 import br.com.senai.controlegestaopessoasview.dto.Facilitador;
+import br.com.senai.controlegestaopessoasview.dto.Tipo;
 import br.com.senai.controlegestaopessoasview.dto.Usuario;
 
 @Component
@@ -30,6 +40,9 @@ public class TelaFacilitadorEdicao extends JFrame {
 	private JTextField edtLogin;
 	private JTextField edtSenha;
 	private JTextArea edtFormacao;
+	@Autowired
+	private FacilitadorClient client;
+	private Facilitador facilitador;
 	
 
 	/**
@@ -69,6 +82,27 @@ public class TelaFacilitadorEdicao extends JFrame {
 		JLabel lblNewLabel = new JLabel("Formação");
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					facilitador.setCpf(edtCpf.getText());
+					facilitador.setFormacao(edtFormacao.getText());
+					facilitador.getUsuario().setLogin(edtLogin.getText());
+					facilitador.getUsuario().setSenha(edtSenha.getText());
+					facilitador.getUsuario().setNomeCompleto(edtNomeCompleto.getText());
+					facilitador.getUsuario().setTipo(Tipo.FACILITADOR);
+					facilitador.setRg(edtRg.getText());
+					client.alterar(facilitador);
+				}catch (HttpClientErrorException hcee) {
+					JSONObject erroClient = new JSONObject(hcee.getResponseBodyAsString());
+					JSONArray erros = erroClient.getJSONArray("erros");
+					for( Object erro : erros) {
+						JSONObject erroJson = (JSONObject) erro;
+						JOptionPane.showMessageDialog(contentPane, erroJson.get("mensagem"));
+					}
+				}
+			}
+		});
 		
 		edtLogin = new JTextField();
 		edtLogin.setColumns(10);
@@ -163,19 +197,12 @@ public class TelaFacilitadorEdicao extends JFrame {
 	}
 	
 	public void montarTela(Facilitador facilitadorMontagem) {
-		
 		edtNomeCompleto.setText(facilitadorMontagem.getUsuario().getNomeCompleto());
 		edtCpf.setText(facilitadorMontagem.getCpf());
-		edtFormacao.setText(facilitadorMontagem.getFormacao());
 		edtLogin.setText(facilitadorMontagem.getUsuario().getLogin());
+		edtFormacao.setText(facilitadorMontagem.getFormacao());
 		edtSenha.setText(facilitadorMontagem.getUsuario().getSenha());
 		edtRg.setText(facilitadorMontagem.getRg());
-		
-		
+		this.facilitador = facilitadorMontagem;
 	}
-	
-	
-	
-	
-	
 }

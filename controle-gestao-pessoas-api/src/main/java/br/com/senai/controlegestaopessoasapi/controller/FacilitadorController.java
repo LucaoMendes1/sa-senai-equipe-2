@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.senai.controlegestaopessoasapi.entity.Facilitador;
+import br.com.senai.controlegestaopessoasapi.entity.Usuario;
 import br.com.senai.controlegestaopessoasapi.service.FacilitadorService;
 
 @RestController
@@ -37,6 +38,12 @@ public class FacilitadorController {
 		Facilitador facilitadorSalvo = 
 				service.inserir(novoFacilitador);
 		return ResponseEntity.created(URI.create("/facilitadores/id/" + facilitadorSalvo.getId())).build();
+	}
+	
+	@PostMapping(value="/buscarPorUsuario")
+	public ResponseEntity<?> buscarFacilitadorPor(@RequestBody Usuario usuario){
+		return ResponseEntity.ok(service.buscarPor(usuario));
+
 	}
 
 	@PutMapping
